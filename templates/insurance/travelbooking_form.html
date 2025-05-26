@@ -1,0 +1,899 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="booking-wrapper">
+    <div class="form-container">
+        <!-- Header Section -->
+        <div class="header">
+            <div class="header-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                    <circle cx="12" cy="10" r="3"/>
+                </svg>
+            </div>
+            <h1>{{ view.object.pk|yesno:"Update Booking,Create Booking" }}</h1>
+            <p class="header-subtitle">Complete your travel booking details</p>
+        </div>
+
+        <form method="post" enctype="multipart/form-data" class="booking-form">
+            {% csrf_token %}
+            
+            <!-- Personal Information Card -->
+            <div class="form-card">
+                <div class="card-header">
+                    <div class="card-icon personal-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                            <circle cx="12" cy="7" r="4"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="card-title">Personal Information</h3>
+                        <p class="card-subtitle">Your basic details and contact information</p>
+                    </div>
+                </div>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">{{ form.given_name.label }}</label>
+                        <div class="input-wrapper">
+                            {{ form.given_name }}
+                            <div class="input-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                    <circle cx="12" cy="7" r="4"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">{{ form.surname.label }}</label>
+                        <div class="input-wrapper">
+                            {{ form.surname }}
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">{{ form.dob.label }}</label>
+                        <div class="input-wrapper">
+                            {{ form.dob }}
+                            <div class="input-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                    <line x1="16" y1="2" x2="16" y2="6"/>
+                                    <line x1="8" y1="2" x2="8" y2="6"/>
+                                    <line x1="3" y1="10" x2="21" y2="10"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">{{ form.nationality.label }}</label>
+                        <div class="input-wrapper">
+                            {{ form.nationality }}
+                            <div class="input-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="2" y1="12" x2="22" y2="12"/>
+                                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">{{ form.travel_from.label }}</label>
+                        <div class="input-wrapper">
+                            {{ form.travel_from }}
+                            <div class="input-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                    <circle cx="12" cy="10" r="3"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">{{ form.phone_number.label }}</label>
+                        <div class="input-wrapper">
+                            {{ form.phone_number }}
+                            <div class="input-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group form-group-full">
+                        <label class="form-label">{{ form.email.label }}</label>
+                        <div class="input-wrapper">
+                            {{ form.email }}
+                            <div class="input-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                    <polyline points="22,6 12,13 2,6"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group form-group-full">
+                        <label class="form-label">{{ form.address.label }}</label>
+                        <div class="input-wrapper">
+                            {{ form.address }}
+                        </div>
+                    </div>
+                    
+                    <div class="form-group form-group-full">
+                        <label class="form-label">{{ form.emergency_contact.label }}</label>
+                        <div class="input-wrapper">
+                            {{ form.emergency_contact }}
+                            <div class="input-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Travel & Documents Card -->
+            <div class="form-card">
+                <div class="card-header">
+                    <div class="card-icon travel-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21 4 19 4s-2 0-3.5 1.5L12 9 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-5 3c-.4.2-.6.5-.6 1 0 .6.4 1 1 1h1l5-4 3.5 3.5c1.5 1.5 3.5 1.5 3.5-1.5z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="card-title">Travel & Documents</h3>
+                        <p class="card-subtitle">Travel documents and booking details</p>
+                    </div>
+                </div>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">{{ form.passport_no.label }}</label>
+                        <div class="input-wrapper">
+                            {{ form.passport_no }}
+                            <div class="input-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                    <polyline points="14,2 14,8 20,8"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">{{ form.package_id.label }}</label>
+                        <div class="input-wrapper">
+                            {{ form.package_id }}
+                            <div class="input-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M16.5 9.4 7.55 4.24"/>
+                                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                                    <polyline points="3.29,7 12,12 20.71,7"/>
+                                    <line x1="12" y1="22" x2="12" y2="12"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">{{ form.start_date.label }}</label>
+                        <div class="input-wrapper">
+                            {{ form.start_date }}
+                            <div class="input-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                    <line x1="16" y1="2" x2="16" y2="6"/>
+                                    <line x1="8" y1="2" x2="8" y2="6"/>
+                                    <line x1="3" y1="10" x2="21" y2="10"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">{{ form.end_date.label }}</label>
+                        <div class="input-wrapper">
+                            {{ form.end_date }}
+                            <div class="input-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                    <line x1="16" y1="2" x2="16" y2="6"/>
+                                    <line x1="8" y1="2" x2="8" y2="6"/>
+                                    <line x1="3" y1="10" x2="21" y2="10"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Document Upload Section -->
+<div class="form-group upload-group">
+    <label class="form-label">{{ form.passport_image_path.label }}</label>
+    <div class="upload-wrapper">
+        {% if form.instance.passport_image_path %}
+            <div class="current-image">
+                <img id="passport-image-preview" src="{{ form.instance.passport_image_path }}" class="image-preview" alt="Current passport image">
+            </div>
+        {% elif form.initial.passport_image_url %}
+            <div class="current-image">
+                <img id="passport-image-preview" src="{{ form.initial.passport_image_url }}" class="image-preview" alt="Autofilled passport image">
+            </div>
+        {% elif form.initial.passport_image_path %}
+            <div class="current-image">
+                <img id="passport-image-preview" src="{{ form.initial.passport_image_path }}" class="image-preview" alt="Autofilled passport image">
+            </div>
+        {% else %}
+            <div class="current-image" style="display:none;">
+                <img id="passport-image-preview" class="image-preview" alt="Passport image preview">
+            </div>
+        {% endif %}
+        <div class="upload-area">
+            {% if form.initial.passport_image_url or form.initial.passport_image_path %}
+                <input type="text" name="passport_image_path" value="{{ form.initial.passport_image_url|default:form.initial.passport_image_path }}" readonly class="form-control readonly-field">
+            {% else %}
+                {{ form.passport_image_path }}
+            {% endif %}
+            <div class="upload-placeholder">
+                <span>Enter Passport Image URL</span>
+                <small>Enter image URL or path</small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="form-group upload-group">
+    <label class="form-label">{{ form.profile_image_path.label }}</label>
+    <div class="upload-wrapper">
+        {% if form.instance.profile_image_path %}
+            <div class="current-image">
+                <img id="profile-image-preview" src="{{ form.instance.profile_image_path }}" class="image-preview" alt="Current profile image">
+                <div class="image-overlay">
+                    <span class="change-text">Click to change</span>
+                </div>
+            </div>
+        {% elif form.initial.profile_image_url %}
+            <div class="current-image">
+                <img id="profile-image-preview" src="{{ form.initial.profile_image_url }}" class="image-preview" alt="Autofilled profile image">
+            </div>
+        {% elif form.initial.profile_image_path %}
+            <div class="current-image">
+                <img id="profile-image-preview" src="{{ form.initial.profile_image_path }}" class="image-preview" alt="Autofilled profile image">
+            </div>
+        {% else %}
+            <div class="current-image" style="display:none;">
+                <img id="profile-image-preview" class="image-preview" alt="Profile image preview">
+            </div>
+        {% endif %}
+        <div class="upload-area">
+            {% if form.initial.profile_image_url or form.initial.profile_image_path %}
+                <input type="text" name="profile_image_path" value="{{ form.initial.profile_image_url|default:form.initial.profile_image_path }}" readonly class="form-control readonly-field">
+            {% else %}
+                {{ form.profile_image_path }}
+            {% endif %}
+            <div class="upload-placeholder">
+                <span>Enter Profile Photo URL</span>
+                <small>Enter image URL or path</small>
+            </div>
+        </div>
+    </div>
+</div>
+                    
+                    <div class="form-group form-group-full">
+                        <label class="form-label">{{ form.notes.label }}</label>
+                        <div class="input-wrapper">
+                            {{ form.notes }}
+                        </div>
+                    </div>
+                    
+                    <div class="form-group checkbox-group">
+                        <div class="checkbox-wrapper">
+                            {{ form.is_active }}
+                            <label for="{{ form.is_active.id_for_label }}" class="checkbox-label">
+                                <span class="checkbox-text">{{ form.is_active.label }}</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="20,6 9,17 4,12"/>
+                    </svg>
+                    Save Booking
+                </button>
+                <a href="{% url 'insurance:travelbooking_list' %}" class="btn btn-secondary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="19" y1="12" x2="5" y2="12"/>
+                        <polyline points="12,19 5,12 12,5"/>
+                    </svg>
+                    Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    .booking-wrapper {
+        min-height: 100vh;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 20px;
+    }
+
+    .form-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        background: #ffffff;
+        border-radius: 24px;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        overflow: hidden;
+        animation: slideUp 0.6s ease-out;
+    }
+
+    @keyframes slideUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 40px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .header::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: repeating-linear-gradient(
+            45deg,
+            transparent,
+            transparent 10px,
+            rgba(255, 255, 255, 0.03) 10px,
+            rgba(255, 255, 255, 0.03) 20px
+        );
+        animation: slide 20s linear infinite;
+    }
+
+    @keyframes slide {
+        0% { transform: translateX(-50px); }
+        100% { transform: translateX(50px); }
+    }
+
+    .header-icon {
+        display: inline-block;
+        width: 80px;
+        height: 80px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+        backdrop-filter: blur(10px);
+        position: relative;
+        z-index: 1;
+    }
+
+    .header h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin: 0 0 10px 0;
+        position: relative;
+        z-index: 1;
+    }
+
+    .header-subtitle {
+        font-size: 1.1rem;
+        opacity: 0.9;
+        margin: 0 0 30px 0;
+        position: relative;
+        z-index: 1;
+    }
+
+    .progress-indicator {
+        position: relative;
+        z-index: 1;
+    }
+
+    .progress-bar {
+        width: 200px;
+        height: 6px;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 3px;
+        margin: 0 auto 10px;
+        overflow: hidden;
+    }
+
+    .progress-fill {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, #ff6b6b, #feca57);
+        border-radius: 3px;
+        animation: progressFill 1s ease-out 0.5s both;
+    }
+
+    @keyframes progressFill {
+        from { width: 0; }
+        to { width: 100%; }
+    }
+
+    .progress-text {
+        font-size: 0.9rem;
+        opacity: 0.8;
+    }
+
+    .booking-form {
+        padding: 40px;
+    }
+
+    .form-card {
+        background: #ffffff;
+        border: 1px solid #e9ecef;
+        border-radius: 16px;
+        margin-bottom: 30px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+    }
+
+    .form-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-header {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        padding: 25px 30px;
+        border-bottom: 1px solid #dee2e6;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .card-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+    }
+
+    .personal-icon {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    .travel-icon {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    }
+
+    .card-title {
+        font-size: 1.4rem;
+        font-weight: 600;
+        margin: 0;
+        color: #2c3e50;
+    }
+
+    .card-subtitle {
+        font-size: 0.95rem;
+        color: #6c757d;
+        margin: 5px 0 0 0;
+    }
+
+    .form-grid {
+        padding: 30px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 25px;
+    }
+
+    .form-group-full {
+        grid-column: 1 / -1;
+    }
+
+    .form-group {
+        position: relative;
+    }
+
+    .form-label {
+        display: block;
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 8px;
+        font-size: 0.95rem;
+    }
+
+    .input-wrapper {
+        position: relative;
+    }
+
+    .form-control, .booking-form input, .booking-form select, .booking-form textarea {
+        width: 100%;
+        padding: 15px 20px;
+        border: 2px solid #e9ecef;
+        border-radius: 12px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background: #ffffff;
+        font-family: inherit;
+    }
+
+    .form-control:focus, .booking-form input:focus, .booking-form select:focus, .booking-form textarea:focus {
+        outline: none;
+        border-color: #667eea;
+        box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        transform: translateY(-1px);
+    }
+
+    .input-icon {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #6c757d;
+        pointer-events: none;
+    }
+
+    .booking-form input[type="file"] {
+        opacity: 0;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+    }
+
+    .upload-group {
+        grid-column: 1 / -1;
+    }
+
+    .upload-wrapper {
+        position: relative;
+    }
+
+    .current-image {
+        position: relative;
+        margin-bottom: 15px;
+    }
+
+    .image-preview {
+        width: 100%;
+        max-width: 200px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 12px;
+        border: 3px solid #e9ecef;
+    }
+
+    .image-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.7);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        max-width: 200px;
+        height: 150px;
+    }
+
+    .current-image:hover .image-overlay {
+        opacity: 1;
+    }
+
+    .change-text {
+        color: white;
+        font-weight: 600;
+    }
+
+    {% comment %} .upload-area {
+        position: relative;
+        border: 2px dashed #dee2e6;
+        border-radius: 12px;
+        padding: 30px;
+        text-align: center;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+
+    .upload-area:hover {
+        border-color: #667eea;
+        background: rgba(102, 126, 234, 0.03);
+    }
+
+    .upload-placeholder {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        color: #6c757d;
+        pointer-events: none;
+    }
+
+    .upload-placeholder span {
+        font-weight: 600;
+        font-size: 1.1rem;
+    }
+
+    .upload-placeholder small {
+        font-size: 0.85rem;
+        opacity: 0.8;
+    } {% endcomment %}
+
+    .checkbox-group {
+        display: flex;
+        align-items: center;
+    }
+
+    .checkbox-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        cursor: pointer;
+    }
+
+    .booking-form input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+    }
+
+    .checkbox-label {
+        cursor: pointer;
+        margin: 0;
+    }
+
+    .checkbox-text {
+        font-size: 1rem;
+        color: #2c3e50;
+    }
+
+    .form-actions {
+        text-align: center;
+        padding: 30px 40px;
+        background: #f8f9fa;
+        margin: 0 -40px -40px -40px;
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 15px 30px;
+        border: none;
+        border-radius: 12px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        min-width: 150px;
+        justify-content: center;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+    }
+
+    .btn-secondary {
+        background: #6c757d;
+        color: white;
+        box-shadow: 0 4px 15px rgba(108, 117, 125, 0.3);
+    }
+
+    .btn-secondary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(108, 117, 125, 0.4);
+        background: #5a6268;
+        color: white;
+        text-decoration: none;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .booking-wrapper {
+            padding: 10px;
+        }
+
+        .form-container {
+            border-radius: 16px;
+        }
+
+        .header {
+            padding: 30px 20px;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+        }
+
+        .booking-form {
+            padding: 20px;
+        }
+
+        .form-grid {
+            padding: 20px;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .card-header {
+            padding: 20px;
+            flex-direction: column;
+            text-align: center;
+            gap: 15px;
+        }
+
+        .form-actions {
+            padding: 20px;
+            margin: 0 -20px -20px -20px;
+            flex-direction: column;
+        }
+
+        .btn {
+            width: 100%;
+        }
+
+        .progress-bar {
+            width: 150px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .header h1 {
+            font-size: 1.75rem;
+        }
+
+        .header-icon {
+            width: 60px;
+            height: 60px;
+        }
+
+        .header-icon svg {
+            width: 36px;
+            height: 36px;
+        }
+
+        .card-icon {
+            width: 40px;
+            height: 40px;
+        }
+
+        .card-icon svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+        }
+
+        .form-control, .booking-form input, .booking-form select, .booking-form textarea {
+            padding: 12px 15px;
+            font-size: 0.95rem;
+        }
+    }
+
+    /* Animation for form cards */
+    .form-card {
+        animation: fadeInUp 0.6s ease-out forwards;
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    .form-card:nth-child(1) {
+        animation-delay: 0.1s;
+    }
+
+    .form-card:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+
+    @keyframes fadeInUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Enhanced focus states */
+    .booking-form input:focus + .input-icon,
+    .booking-form select:focus + .input-icon {
+        color: #667eea;
+        transform: translateY(-50%) scale(1.1);
+    }
+
+    /* Custom select styling */
+    .booking-form select {
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+        background-position: right 12px center;
+        background-repeat: no-repeat;
+        background-size: 16px;
+        padding-right: 40px;
+    }
+
+    /* Textarea specific styling */
+    .booking-form textarea {
+        min-height: 100px;
+        resize: vertical;
+        font-family: inherit;
+    }
+
+    /* Loading state for form submission */
+    .btn-primary:disabled {
+        background: #6c757d;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+    }
+
+    /* Success/Error states for inputs */
+    .form-control.is-valid, .booking-form input.is-valid, .booking-form select.is-valid {
+        border-color: #28a745;
+        box-shadow: 0 0 0 4px rgba(40, 167, 69, 0.1);
+    }
+
+    .form-control.is-invalid, .booking-form input.is-invalid, .booking-form select.is-invalid {
+        border-color: #dc3545;
+        box-shadow: 0 0 0 4px rgba(220, 53, 69, 0.1);
+    }
+
+    /* Subtle hover effects for better UX */
+    .form-group:hover .form-label {
+        color: #667eea;
+        transition: color 0.2s ease;
+    }
+
+    .upload-area:hover .upload-placeholder svg {
+        color: #667eea;
+        transform: scale(1.05);
+        transition: all 0.2s ease;
+    }
+</style>
+{% endblock %}

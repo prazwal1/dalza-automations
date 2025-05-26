@@ -1,0 +1,23 @@
+version: '3.9'
+
+services:
+  # db:
+  #   image: postgres:15
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data/
+  #   environment:
+  #     POSTGRES_DB: mydb
+  #     POSTGRES_USER: myuser
+  #     POSTGRES_PASSWORD: mypassword
+  #   networks:
+  #     - djangonetwork
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    environment:
+      - INTERNAL_HOST=172.31.176.1
+      - INTERNAL_URL=http://172.31.176.1:8000

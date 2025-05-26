@@ -1,0 +1,410 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="booking-wrapper">
+    <div class="form-container">
+        <!-- Header Section -->
+        <div class="header">
+            <div class="header-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                    <circle cx="12" cy="7" r="4"/>
+                </svg>
+            </div>
+            <h1>{{ view.object.pk|yesno:"Update User,Create User" }}</h1>
+            <p class="header-subtitle">Manage user account details</p>
+        </div>
+
+        <form method="post" class="booking-form">
+            {% csrf_token %}
+            <div class="form-card">
+                <div class="card-header">
+                    <div class="card-icon personal-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                            <circle cx="12" cy="7" r="4"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="card-title">User Information</h3>
+                        <p class="card-subtitle">Basic user details and permissions</p>
+                    </div>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label" for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+                        <div class="input-wrapper">
+                            {{ form.email }}
+                            <div class="input-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                    <polyline points="22,6 12,13 2,6"/>
+                                </svg>
+                            </div>
+                        </div>
+                        {{ form.email.errors }}
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
+                        <div class="input-wrapper">
+                            {{ form.name }}
+                            <div class="input-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="7" r="4"/>
+                                </svg>
+                            </div>
+                        </div>
+                        {{ form.name.errors }}
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="{{ form.phone_number.id_for_label }}">{{ form.phone_number.label }}</label>
+                        <div class="input-wrapper">
+                            {{ form.phone_number }}
+                            <div class="input-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                                </svg>
+                            </div>
+                        </div>
+                        {{ form.phone_number.errors }}
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="{{ form.role.id_for_label }}">{{ form.role.label }}</label>
+                        <div class="input-wrapper">
+                            {{ form.role }}
+                            <div class="input-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="2" y1="12" x2="22" y2="12"/>
+                                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                                </svg>
+                            </div>
+                        </div>
+                        {{ form.role.errors }}
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
+                        <div class="input-wrapper">
+                            {{ form.password }}
+                            <div class="input-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                                </svg>
+                            </div>
+                        </div>
+                        {% if view.object.pk %}
+                            <small style="color:#6c757d;">Leave blank to keep current password.</small>
+                        {% else %}
+                            <small style="color:#6c757d;">Add a strong password.</small>
+                        {% endif %}
+                        {{ form.password.errors }}
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="{{ form.is_active.id_for_label }}">{{ form.is_active.label }}</label>
+                        <div class="checkbox-wrapper">
+                            {{ form.is_active }}
+                            <label for="{{ form.is_active.id_for_label }}" class="checkbox-label">
+                                <span class="checkbox-text">{{ form.is_active.label }}</span>
+                            </label>
+                        </div>
+                        {{ form.is_active.errors }}
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="{{ form.is_staff.id_for_label }}">{{ form.is_staff.label }}</label>
+                        <div class="checkbox-wrapper">
+                            {{ form.is_staff }}
+                            <label for="{{ form.is_staff.id_for_label }}" class="checkbox-label">
+                                <span class="checkbox-text">{{ form.is_staff.label }}</span>
+                            </label>
+                        </div>
+                        {{ form.is_staff.errors }}
+                    </div>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="20,6 9,17 4,12"/>
+                    </svg>
+                    {% if view.object.pk %}Update{% else %}Create{% endif %}
+                </button>
+                <a href="{% url 'customuser_list' %}" class="btn btn-secondary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="19" y1="12" x2="5" y2="12"/>
+                        <polyline points="12,19 5,12 12,5"/>
+                    </svg>
+                    Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    * { box-sizing: border-box; }
+    .booking-wrapper {
+        min-height: 100vh;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 20px;
+    }
+    .form-container {
+        max-width: 700px;
+        margin: 0 auto;
+        background: #ffffff;
+        border-radius: 24px;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        overflow: hidden;
+        animation: slideUp 0.6s ease-out;
+    }
+    @keyframes slideUp {
+        from { opacity: 0; transform: translateY(30px);}
+        to { opacity: 1; transform: translateY(0);}
+    }
+    .header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 40px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+    .header::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: repeating-linear-gradient(
+            45deg,
+            transparent,
+            transparent 10px,
+            rgba(255, 255, 255, 0.03) 10px,
+            rgba(255, 255, 255, 0.03) 20px
+        );
+        animation: slide 20s linear infinite;
+    }
+    @keyframes slide {
+        0% { transform: translateX(-50px);}
+        100% { transform: translateX(50px);}
+    }
+    .header-icon {
+        display: inline-block;
+        width: 80px;
+        height: 80px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+        backdrop-filter: blur(10px);
+        position: relative;
+        z-index: 1;
+    }
+    .header h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin: 0 0 10px 0;
+        position: relative;
+        z-index: 1;
+    }
+    .header-subtitle {
+        font-size: 1.1rem;
+        opacity: 0.9;
+        margin: 0 0 30px 0;
+        position: relative;
+        z-index: 1;
+    }
+    .booking-form {
+        padding: 40px;
+    }
+    .form-card {
+        background: #ffffff;
+        border: 1px solid #e9ecef;
+        border-radius: 16px;
+        margin-bottom: 30px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+        animation: fadeInUp 0.6s ease-out forwards;
+        opacity: 0;
+        transform: translateY(20px);
+        animation-delay: 0.1s;
+    }
+    @keyframes fadeInUp {
+        to { opacity: 1; transform: translateY(0);}
+    }
+    .form-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+    .card-header {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        padding: 25px 30px;
+        border-bottom: 1px solid #dee2e6;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+    .card-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+    }
+    .personal-icon {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    .card-title {
+        font-size: 1.4rem;
+        font-weight: 600;
+        margin: 0;
+        color: #2c3e50;
+    }
+    .card-subtitle {
+        font-size: 0.95rem;
+        color: #6c757d;
+        margin: 5px 0 0 0;
+    }
+    .form-grid {
+        padding: 30px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 25px;
+    }
+    .form-group {
+        position: relative;
+    }
+    .form-label {
+        display: block;
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 8px;
+        font-size: 0.95rem;
+    }
+    .input-wrapper {
+        position: relative;
+    }
+    .form-control, .booking-form input, .booking-form select, .booking-form textarea {
+        width: 100%;
+        padding: 15px 20px;
+        border: 2px solid #e9ecef;
+        border-radius: 12px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background: #ffffff;
+        font-family: inherit;
+    }
+    .form-control:focus, .booking-form input:focus, .booking-form select:focus, .booking-form textarea:focus {
+        outline: none;
+        border-color: #667eea;
+        box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        transform: translateY(-1px);
+    }
+    .input-icon {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #6c757d;
+        pointer-events: none;
+    }
+    .checkbox-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        cursor: pointer;
+    }
+    .booking-form input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+    }
+    .checkbox-label {
+        cursor: pointer;
+        margin: 0;
+    }
+    .checkbox-text {
+        font-size: 1rem;
+        color: #2c3e50;
+    }
+    .form-actions {
+        text-align: center;
+        padding: 30px 40px;
+        background: #f8f9fa;
+        margin: 0 -40px -40px -40px;
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 15px 30px;
+        border: none;
+        border-radius: 12px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        min-width: 150px;
+        justify-content: center;
+    }
+    .btn-primary {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    }
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+    }
+    .btn-secondary {
+        background: #6c757d;
+        color: white;
+        box-shadow: 0 4px 15px rgba(108, 117, 125, 0.3);
+    }
+    .btn-secondary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(108, 117, 125, 0.4);
+        background: #5a6268;
+        color: white;
+        text-decoration: none;
+    }
+    @media (max-width: 768px) {
+        .booking-wrapper { padding: 10px;}
+        .form-container { border-radius: 16px;}
+        .header { padding: 30px 20px;}
+        .header h1 { font-size: 2rem;}
+        .booking-form { padding: 20px;}
+        .form-grid { padding: 20px; grid-template-columns: 1fr; gap: 20px;}
+        .card-header { padding: 20px; flex-direction: column; text-align: center; gap: 15px;}
+        .form-actions { padding: 20px; margin: 0 -20px -20px -20px; flex-direction: column;}
+        .btn { width: 100%;}
+    }
+    @media (max-width: 480px) {
+        .header h1 { font-size: 1.75rem;}
+        .header-icon { width: 60px; height: 60px;}
+        .header-icon svg { width: 36px; height: 36px;}
+        .card-icon { width: 40px; height: 40px;}
+        .card-icon svg { width: 20px; height: 20px;}
+        .card-title { font-size: 1.2rem;}
+        .form-control, .booking-form input, .booking-form select, .booking-form textarea {
+            padding: 12px 15px;
+            font-size: 0.95rem;
+        }
+    }
+    .form-group:hover .form-label {
+        color: #667eea;
+        transition: color 0.2s ease;
+    }
+</style>
+{% endblock %}

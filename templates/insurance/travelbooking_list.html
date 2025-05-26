@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Travel Bookings</h2>
+    <div class="mb-3">
+        <a href="{% url 'insurance:travelbooking_upload' %}" class="btn btn-success">
+            + Create Booking
+        </a>
+    </div>
+   <table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Given Name</th>
+            <th>Surname</th>
+            <th>Nationality</th>
+            <th>Package</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            {% if user.role == "admin" %}
+            <th>Is Active</th>
+            {% endif %}
+            <th>Created At</th>
+            <th>Details</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for booking in bookings %}
+        <tr>
+            <td>{{ booking.given_name }}</td>
+            <td>{{ booking.surname }}</td>
+            <td>{{ booking.nationality }}</td>
+            <td>{{ booking.package_id }}</td>
+            <td>{{ booking.start_date }}</td>
+            <td>{{ booking.end_date }}</td>
+            {% if user.role == "admin" %}
+            <td>
+                {% if booking.is_active %}
+                    ✅
+                {% else %}
+                    ❌
+                {% endif %}
+            </td>
+            {% endif %}
+            <td>{{ booking.created_at|date:"Y-m-d H:i" }}</td>
+            <td>
+                <a href="{% url 'insurance:travelbooking_detail' booking.id %}" class="btn btn-primary btn-sm">View</a>
+            </td>
+            <td>
+                <a href="{% url 'insurance:travelbooking_update' booking.id %}" class="btn btn-warning btn-sm">Update</a>
+            </td>
+            <td>
+                <a href="{% url 'insurance:travelbooking_delete' booking.id %}" class="btn btn-danger btn-sm">Delete</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="{% if user.role == 'admin' %}11{% else %}10{% endif %}" class="text-center">No bookings found.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+    {% if is_paginated %}
+    <nav>
+        <ul class="pagination">
+            {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+            </li>
+            {% endif %}
+            <li class="page-item active">
+                <span class="page-link">{{ page_obj.number }}</span>
+            </li>
+            {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+</div>
+{% endblock %}

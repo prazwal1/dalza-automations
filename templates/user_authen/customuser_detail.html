@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h2>User Detail</h2>
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">{{ user.name }}</h5>
+            <p class="card-text"><strong>Email:</strong> {{ user.email }}</p>
+            <p class="card-text"><strong>Phone Number:</strong> {{ user.phone_number }}</p>
+            <p class="card-text"><strong>Role:</strong> {{ user.get_role_display }}</p>
+            <p class="card-text"><strong>Active:</strong> {{ user.is_active }}</p>
+            <p class="card-text"><strong>Staff:</strong> {{ user.is_staff }}</p>
+            <p class="card-text"><strong>Created At:</strong> {{ user.created_at|date:"Y-m-d H:i" }}</p>
+            <p class="card-text"><strong>Updated At:</strong> {{ user.updated_at|date:"Y-m-d H:i" }}</p>
+            <div class="mt-4 d-flex justify-content-end gap-2">
+                <a href="{% url 'customuser_update' user.id %}" class="btn btn-primary">
+                    <i class="bi bi-pencil-square"></i> Edit User
+                </a>
+                <a href="{% url 'customuser_delete' user.id %}" class="btn btn-danger">
+                    <i class="bi bi-trash"></i> Delete User
+                </a>
+            </div>
+        </div>
+    </div>
+    <a href="{% url 'customuser_list' %}" class="btn btn-secondary">Back to User List</a>
+</div>
+{% endblock %}

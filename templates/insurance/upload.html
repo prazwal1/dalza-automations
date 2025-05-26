@@ -1,0 +1,273 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <div class="upload-container">
+        <div class="header">
+            <h1>Travel Insurance Application</h1>
+            <p class="text-muted">Upload a PDF or your profile and passport images to get started</p>
+        </div>
+
+
+        <form action="{% url 'insurance:travelbooking_upload' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="upload-area mb-4" id="profile-passport-area">
+                        <!-- Profile Photo Upload -->
+                        <div class="mb-4">
+                            <div class="upload-icon">📷</div>
+                            <h4>Profile Photo</h4>
+                            <p class="text-muted">Upload a clear photo of yourself</p>
+                            <label class="btn btn-outline-primary w-100 mb-2" for="profile-input">
+                                Choose Profile Photo
+                            </label>
+                            <input type="file" name="profile_image" class="file-input" id="profile-input" accept="image/*">
+                            <!-- Move preview image here -->
+                            <div class="text-center">
+                                <img id="profile-preview" class="preview-image" style="display:none;">
+                            </div>
+                        </div>
+                        <hr>
+                        <!-- Passport Photo Upload -->
+                        <div>
+                            <div class="upload-icon">🛂</div>
+                            <h4>Passport Photo</h4>
+                            <p class="text-muted">Upload a clear scan of your passport</p>
+                            <label class="btn btn-outline-secondary w-100 mb-2" for="passport-input">
+                                Choose Passport Photo
+                            </label>
+                            <input type="file" name="passport_image" class="file-input" id="passport-input" accept="image/*">
+                            <!-- Move preview image here -->
+                            <div class="text-center">
+                                <img id="passport-preview" class="preview-image" style="display:none;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="upload-area mb-4" id="pdf-area">
+                        <div class="upload-icon">📄</div>
+                        <h4>PDF Document</h4>
+                        <p class="text-muted">Alternatively, upload a PDF containing your details</p>
+                        <label class="btn btn-outline-info w-100 mb-2" for="pdf-input">
+                            Choose PDF Document
+                        </label>
+                        <input type="file" name="pdf_file" class="file-input" id="pdf-input" accept="application/pdf">
+                        <div id="pdf-preview" class="preview-image" style="display:none;">
+                            <span class="text-success">📄 PDF selected!</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-primary btn-lg submit-btn" id="submit-btn" disabled>Continue</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #f8f9fa;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .upload-container {
+        max-width: 800px;
+        margin: 50px auto;
+        background-color: white;
+        border-radius: 15px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+    }
+    .header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    .header h1 {
+        color: #3a86ff;
+        font-weight: 600;
+    }
+    .upload-area {
+        border: 2px dashed #adb5bd;
+        border-radius: 10px;
+        padding: 30px;
+        text-align: center;
+        margin-bottom: 20px;
+        transition: all 0.3s ease;
+        position: relative;
+        min-height: 300px;
+    }
+    .upload-area.disabled {
+        opacity: 0.6;
+        background-color: #f8f9fa;
+    }
+    .upload-area:hover {
+        border-color: #3a86ff;
+        background-color: #f8f9fa;
+    }
+    .upload-icon {
+        font-size: 60px;
+        color: #adb5bd;
+        margin-bottom: 15px;
+    }
+    .file-input {
+        display: none;
+    }
+    .btn {
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .btn:hover {
+        transform: translateY(-1px);
+    }
+    .submit-btn {
+        background-color: #3a86ff;
+        border: none;
+        padding: 12px 30px;
+        font-size: 18px;
+        transition: all 0.3s ease;
+    }
+    .submit-btn:disabled {
+        background-color: #adb5bd;
+        cursor: not-allowed;
+        transform: none;
+    }
+    .submit-btn:hover:enabled {
+        background-color: #2667cc;
+        transform: translateY(-2px);
+    }
+    .preview-image {
+        max-width: 100%;
+        max-height: 200px;
+        border-radius: 8px;
+        display: none;
+        margin-top: 15px;
+        border: 2px solid #e9ecef;
+    }
+    .flash-message {
+        padding: 10px 15px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        background-color: #f8d7da;
+        color: #721c24;
+    }
+    .disabled-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 10px;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        color: #6c757d;
+        font-weight: 500;
+    }
+    .upload-area.disabled .disabled-overlay {
+        display: flex;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const profileInput = document.getElementById('profile-input');
+        const passportInput = document.getElementById('passport-input');
+        const pdfInput = document.getElementById('pdf-input');
+        const profilePreview = document.getElementById('profile-preview');
+        const passportPreview = document.getElementById('passport-preview');
+        const pdfPreview = document.getElementById('pdf-preview');
+        const profilePassportArea = document.getElementById('profile-passport-area');
+        const pdfArea = document.getElementById('pdf-area');
+        const submitBtn = document.getElementById('submit-btn');
+
+        // Add disabled overlays
+        const profilePassportOverlay = document.createElement('div');
+        profilePassportOverlay.className = 'disabled-overlay';
+        profilePassportOverlay.innerHTML = 'PDF option selected';
+        profilePassportArea.appendChild(profilePassportOverlay);
+
+        const pdfOverlay = document.createElement('div');
+        pdfOverlay.className = 'disabled-overlay';
+        pdfOverlay.innerHTML = 'Profile & Passport option selected';
+        pdfArea.appendChild(pdfOverlay);
+
+        function updateUIState() {
+            const pdfSelected = pdfInput.files.length > 0;
+            const profileSelected = profileInput.files.length > 0;
+            const passportSelected = passportInput.files.length > 0;
+            const anyImageSelected = profileSelected || passportSelected;
+            const bothImagesSelected = profileSelected && passportSelected;
+
+            // Update visual state
+            if (pdfSelected) {
+                profilePassportArea.classList.add('disabled');
+                pdfArea.classList.remove('disabled');
+                submitBtn.disabled = false;
+            } else if (anyImageSelected) {
+                pdfArea.classList.add('disabled');
+                profilePassportArea.classList.remove('disabled');
+                submitBtn.disabled = !bothImagesSelected;
+            } else {
+                pdfArea.classList.remove('disabled');
+                profilePassportArea.classList.remove('disabled');
+                submitBtn.disabled = true;
+            }
+        }
+
+        // Profile input handler
+        profileInput.addEventListener('change', function(e) {
+            if (e.target.files.length > 0) {
+                profilePreview.src = URL.createObjectURL(e.target.files[0]);
+                profilePreview.style.display = 'block';
+                // Clear PDF if profile is selected
+                if (pdfInput.files.length > 0) {
+                    pdfInput.value = '';
+                    pdfPreview.style.display = 'none';
+                }
+            } else {
+                profilePreview.style.display = 'none';
+            }
+            updateUIState();
+        });
+
+        // Passport input handler
+        passportInput.addEventListener('change', function(e) {
+            if (e.target.files.length > 0) {
+                passportPreview.src = URL.createObjectURL(e.target.files[0]);
+                passportPreview.style.display = 'block';
+                // Clear PDF if passport is selected
+                if (pdfInput.files.length > 0) {
+                    pdfInput.value = '';
+                    pdfPreview.style.display = 'none';
+                }
+            } else {
+                passportPreview.style.display = 'none';
+            }
+            updateUIState();
+        });
+
+        // PDF input handler
+        pdfInput.addEventListener('change', function(e) {
+            if (e.target.files.length > 0) {
+                pdfPreview.style.display = 'block';
+                // Clear images if PDF is selected
+                profileInput.value = '';
+                passportInput.value = '';
+                profilePreview.style.display = 'none';
+                passportPreview.style.display = 'none';
+            } else {
+                pdfPreview.style.display = 'none';
+            }
+            updateUIState();
+        });
+
+        // Initialize state
+        updateUIState();
+    });
+</script>
+{% endblock %}
