@@ -16,6 +16,45 @@
 
         <form method="post" enctype="multipart/form-data" class="booking-form">
             {% csrf_token %}
+
+                                        <div class="passport-preview-panel">
+                                <div class="preview-header">
+                                    <div class="preview-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                            <polyline points="14,2 14,8 20,8"/>
+                                        </svg>
+                                    </div>
+                                    <h4>Passport Reference</h4>
+                                </div>
+                                
+                                <div class="passport-image-container">
+                                    {% if form.instance.passport_image_path %}
+                                        <img id="passport-reference-preview" src="{{ form.instance.passport_image_path }}" class="passport-reference-image" alt="Passport reference">
+                                        <div class="image-status">✓ Current Image</div>
+                                    {% elif form.initial.passport_image_url %}
+                                        <img id="passport-reference-preview" src="{{ form.initial.passport_image_url }}" class="passport-reference-image" alt="Passport reference">
+                                        <div class="image-status">✓ Auto-filled</div>
+                                    {% elif form.initial.passport_image_path %}
+                                        <img id="passport-reference-preview" src="{{ form.initial.passport_image_path }}" class="passport-reference-image" alt="Passport reference">
+                                        <div class="image-status">✓ Auto-filled</div>
+                                    {% else %}
+                                        <div class="passport-placeholder">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                                <polyline points="14,2 14,8 20,8"/>
+                                                <circle cx="12" cy="12" r="2"/>
+                                            </svg>
+                                            <p>Upload passport to see preview</p>
+                                        </div>
+                                        <div class="image-status pending">⏳ No Image</div>
+                                    {% endif %}
+                                </div>
+                                
+                                <div class="preview-info">
+                                    <small>Use this reference to verify your information below</small>
+                                </div>
+                            </div>
             
             <!-- Personal Information Card -->
             <div class="form-card">
@@ -83,13 +122,13 @@
                     </div>
                     
                     <div class="form-group">
-                        <label class="form-label">{{ form.travel_from.label }}</label>
+                        <label class="form-label">{{ form.passport_no.label }}</label>
                         <div class="input-wrapper">
-                            {{ form.travel_from }}
+                            {{ form.passport_no }}
                             <div class="input-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                                    <circle cx="12" cy="10" r="3"/>
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                    <polyline points="14,2 14,8 20,8"/>
                                 </svg>
                             </div>
                         </div>
@@ -157,13 +196,13 @@
                 
                 <div class="form-grid">
                     <div class="form-group">
-                        <label class="form-label">{{ form.passport_no.label }}</label>
+                        <label class="form-label">{{ form.travel_from.label }}</label>
                         <div class="input-wrapper">
-                            {{ form.passport_no }}
+                            {{ form.travel_from }}
                             <div class="input-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                                    <polyline points="14,2 14,8 20,8"/>
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                    <circle cx="12" cy="10" r="3"/>
                                 </svg>
                             </div>
                         </div>
