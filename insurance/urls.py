@@ -17,4 +17,6 @@ urlpatterns = [
     path('<int:pk>/update/', TravelBookingUpdateView.as_view(), name='travelbooking_update'),
     path('<int:pk>/delete/', TravelBookingDeleteView.as_view(), name='travelbooking_delete'),
     path('<int:booking_id>/is_active/', views.patch_is_active, name='patch_is_active'),
+    path('bookings/export/', views.export_travel_bookings_csv, name='travelbooking_export_csv'),
+
 ]

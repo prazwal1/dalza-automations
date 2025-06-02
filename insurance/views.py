@@ -11,7 +11,8 @@ from django.http import JsonResponse, HttpResponseNotAllowed, Http404
 import json 
 from django.views.decorators.csrf import csrf_exempt
 from datetime import datetime
-
+import csv
+from django.http import HttpResponse
 
 AUTOMATION_URL = settings.AUTOMATION_SERVICE_URL
 INTERNAL_URL = settings.INTERNAL_URL
@@ -199,3 +200,23 @@ def patch_is_active(request, booking_id):
             return JsonResponse({'success': False, 'error': 'is_active not provided'}, status=400)
     except Exception as e:
         return JsonResponse({'success': False, 'error': str(e)}, status=400)
+
+
+def export_travel_bookings_csv(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="travel_bookings.csv"'
+
+    writer = csv.writer(response)
+    header = ['Given Name', 'Surname', 'Nationality', 'Package', 'Start Date', 'End Date', 'Created At']
+    if request.user.role == 'admin':
+        header.extend(['Is Active', 'Added By'])
+    writer.writerow(header)
+
+    bookings = TravelBooking.objects.all()
+    for b in bookings:
+        row = [b.given_name, b.surname, b.nationality, b.package_id, b.start_date, b.end_date, b.created_at]
+        if request.user.role == 'admin':
+            row.extend(['Yes' if b.is_active else 'No', str(b.created_by)])
+        writer.writerow(row)
+
+    return response
