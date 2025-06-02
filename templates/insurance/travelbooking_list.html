@@ -18,6 +18,7 @@
             <th>End Date</th>
             {% if user.role == "admin" %}
             <th>Is Active</th>
+            <th> Added By </th>
             {% endif %}
             <th>Created At</th>
             <th>Details</th>
@@ -42,6 +43,7 @@
                     ❌
                 {% endif %}
             </td>
+            <td> {{booking.created_by}} </td>
             {% endif %}
             <td>{{ booking.created_at|date:"Y-m-d H:i" }}</td>
             <td>
