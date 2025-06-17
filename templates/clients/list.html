@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+<div class="mb-3 d-flex justify-content-between align-items-center">
+    <div>
+        <a href="{% url 'client_create' %}" class="btn btn-success">
+            + Create Client
+        </a>
+        <a href="" class="btn btn-outline-primary">
+            ⬇️ Export CSV
+        </a>
+    </div>
+    <form method="post" action="{% url 'import_clients_csv' %}" enctype="multipart/form-data" class="d-flex align-items-center">
+        {% csrf_token %}
+        <input type="file" name="file" accept=".csv" required class="form-control me-2">
+        <button type="submit" class="btn btn-outline-secondary">⬆️ Import CSV</button>
+    </form>
+</div>
+
+    
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Gender</th>
+                <th>Nationality</th>
+                <th>Phone</th>
+                <th>Email</th>
+                {% if user.role == "admin" %}
+                <th>Agent</th>
+                <th>Created By</th>
+                {% endif %}
+                <th>Created At</th>
+                <th>Details</th>
+                <th>Update</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for client in clients %}
+            <tr>
+                <td>{{ client.first_name }}</td>
+                <td>{{ client.last_name }}</td>
+                <td>{{ client.gender }}</td>
+                <td>{{ client.nationality }}</td>
+                <td>{{ client.phone_number }}</td>
+                <td>{{ client.email }}</td>
+                {% if user.role == "admin" %}
+                <td>{{ client.agent }}</td>
+                <td>{{ client.created_by }}</td>
+                {% endif %}
+                <td>{{ client.created_date|date:"Y-m-d H:i" }}</td>
+                <td>
+                    <a href="{% url 'client_detail' client.id %}" class="btn btn-primary btn-sm">View</a>
+                </td>
+                <td>
+                    <a href="{% url 'client_update' client.id %}" class="btn btn-warning btn-sm">Update</a>
+                </td>
+                <td>
+                    <a href="{% url 'client_delete' client.id %}" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="{% if user.role == 'admin' %}12{% else %}10{% endif %}" class="text-center">No clients found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% if is_paginated %}
+    <nav>
+        <ul class="pagination">
+            {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+            </li>
+            {% endif %}
+            <li class="page-item active">
+                <span class="page-link">{{ page_obj.number }}</span>
+            </li>
+            {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+</div>
+{% endblock %}

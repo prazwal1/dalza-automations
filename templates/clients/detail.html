@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Client Details</h2>
+    <div class="card mb-4">
+        <div class="card-body d-flex flex-wrap">
+            <!-- Left side: Core Info -->
+            <div class="flex-grow-1 me-4" style="min-width: 300px;">
+                <h5 class="card-title">{{ client.first_name }} {{ client.last_name }}</h5>
+                <p class="card-text"><strong>Nationality:</strong> {{ client.nationality }}</p>
+                <p class="card-text"><strong>Gender:</strong> {{ client.gender }}</p>
+                <p class="card-text"><strong>Date of Birth:</strong> {{ client.dob }}</p>
+                <p class="card-text"><strong>Phone:</strong> {{ client.phone_number }}</p>
+                <p class="card-text"><strong>Email:</strong> {{ client.email }}</p>
+                <p class="card-text"><strong>Address:</strong> {{ client.address }}</p>
+                <p class="card-text"><strong>City:</strong> {{ client.city }}</p>
+                <p class="card-text"><strong>Province:</strong> {{ client.province }}</p>
+                <p class="card-text"><strong>Country:</strong> {{ client.country }}</p>
+                <p class="card-text"><strong>Zip (Ward):</strong> {{ client.zip }}</p>
+                <p class="card-text"><strong>Created At:</strong> {{ client.created_date|date:"Y-m-d H:i" }}</p>
+                <p class="card-text"><strong>Agent:</strong> {{ client.agent }}</p>
+                <p class="card-text"><strong>Billed By:</strong> {{ client.billed_by }}</p>
+                <p class="card-text"><strong>Created By:</strong> {{ client.created_by }}</p>
+            </div>
+
+            <!-- Right side: Uploaded Documents -->
+            <div style="min-width: 250px;">
+                <h5>Uploaded Documents</h5>
+                {% for doc in client.uploadeddocument_set.all %}
+                    <p><strong>{{ doc.get_doc_type_display }}:</strong></p>
+                    <a href="{{ doc.file.url }}" target="_blank">
+                        <img src="{{ doc.file.url }}" class="img-thumbnail mb-2" style="max-width: 200px;">
+                    </a>
+                {% empty %}
+                    <p class="text-muted">No documents uploaded.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Internet Details -->
+    {% if client.internetdetails %}
+    <div class="card mb-3">
+        <div class="card-header">Internet Details</div>
+        <div class="card-body">
+            <p><strong>Username:</strong> {{ client.internetdetails.username_or_mac }}</p>
+            <p><strong>MAC User:</strong> {{ client.internetdetails.mac_user }}</p>
+            <p><strong>Enabled:</strong> {{ client.internetdetails.enable }}</p>
+            <p><strong>Password:</strong> {{ client.internetdetails.password }}</p>
+            <p><strong>MAC Address:</strong> {{ client.internetdetails.mac_address_of_cm }}</p>
+            <p><strong>Simultaneous Use:</strong> {{ client.internetdetails.simultaneous_use }}</p>
+            <p><strong>Service Plan:</strong> {{ client.internetdetails.service_plan }}</p>
+            <p><strong>User Group:</strong> {{ client.internetdetails.user_group }}</p>
+            <p><strong>Download Limit:</strong> {{ client.internetdetails.download_limit }} Bytes</p>
+            <p><strong>Upload Limit:</strong> {{ client.internetdetails.upload_limit }} Bytes</p>
+            <p><strong>Total Limit:</strong> {{ client.internetdetails.total_limit }} Bytes</p>
+            <p><strong>Account Expiry:</strong> {{ client.internetdetails.account_expiry_date }}</p>
+            <p><strong>Radius Comments:</strong> {{ client.internetdetails.radius_comments }}</p>
+            <p><strong>Radius Attribute:</strong> {{ client.internetdetails.radius_attribute }}</p>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Insurance Details -->
+    {% if client.insurancedetails %}
+    <div class="card mb-3">
+        <div class="card-header">Insurance Details</div>
+        <div class="card-body">
+            <p><strong>Insurance Comments:</strong> {{ client.insurancedetails.insurance_comments }}</p>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Tracking Details -->
+    {% if client.trackingdetails %}
+    <div class="card mb-3">
+        <div class="card-header">Travel Tracking</div>
+        <div class="card-body">
+            <p><strong>Travel From:</strong> {{ client.trackingdetails.travel_from }}</p>
+            <p><strong>Emergency Contact:</strong> {{ client.trackingdetails.emergency_contact }}</p>
+            <p><strong>Package:</strong> {{ client.trackingdetails.package }}</p>
+            <p><strong>Start Date:</strong> {{ client.trackingdetails.travel_start_date }}</p>
+            <p><strong>End Date:</strong> {{ client.trackingdetails.travel_end_date }}</p>
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="mt-4 d-flex justify-content gap-2">
+        <a href="{% url 'client_list' %}" class="btn btn-secondary">Back to List</a>
+        <a href="{% url 'client_update' client.id %}" class="btn btn-primary">
+            <i class="bi bi-pencil-square"></i> Update
+        </a>
+        <a href="#" class="btn btn-danger">
+            <i class="bi bi-trash"></i> Delete
+        </a>
+    </div>
+</div>
+{% endblock %}

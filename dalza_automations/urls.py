@@ -23,5 +23,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('user_authen.urls')),
     path('insurance/', include('insurance.urls')),
+    path('clients/', include('clients.urls')),
     
 ] + static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS[0])
