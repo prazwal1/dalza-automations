@@ -2,7 +2,7 @@ from django import forms
 from django.forms import inlineformset_factory
 from .models import (
     Client, InternetDetails, InsuranceDetails,
-    TrackingDetails, UploadedDocument
+    TrackingDetails, UploadedDocument, Address
 )
 from insurance.permissions import get_allowed_fields_by_role
 
@@ -20,7 +20,7 @@ class ClientForm(forms.ModelForm):
 
     class Meta:
         model = Client
-        fields = '__all__'
+        exclude = ('agent', 'created_by', 'billed_by', 'unique_id', 'perma_address','address')
         widgets = {
             'dob': forms.DateInput(attrs={'type': 'date'}),
         }
@@ -50,6 +50,11 @@ class TrackingDetailsForm(forms.ModelForm):
             'travel_end_date': forms.DateInput(attrs={'type': 'date'}),
         }
 
+
+class AddressForm(forms.ModelForm):
+    class Meta:
+        model = Address
+        fields = ['city', 'province', 'district', 'ward_no', 'street_name']
 
 UploadedDocumentFormSet = inlineformset_factory(
     Client,

@@ -16,6 +16,16 @@ class UserGroup(models.Model):
     def __str__(self):
         return self.name
 
+class Address(models.Model):
+    city = models.CharField(max_length=100)
+    province = models.CharField(max_length=100)
+    district = models.CharField(max_length=100)
+    ward_no = models.CharField(max_length=10)
+    street_name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return f"{self.street_name}, Ward {self.ward_no}, {self.district}, {self.city}, {self.province}"
+
 
 class Client(models.Model):
     first_name = models.CharField(max_length=100)
@@ -23,23 +33,29 @@ class Client(models.Model):
     dob = models.DateField(null=True, blank=True)
     gender = models.CharField(max_length=20)
     nationality = models.CharField(max_length=100)
-    address = models.TextField()
-    city = models.CharField(max_length=100)
-    province = models.CharField(max_length=100)
+
+    # Current Address Fields
+    address = models.OneToOneField(Address, related_name="current_client", on_delete=models.CASCADE)
+    perma_address = models.OneToOneField(Address, related_name="permanent_client", on_delete=models.CASCADE, null=True, blank=True)
+
     zip = models.CharField(max_length=10)
     country = models.CharField(max_length=100)
-    perma_address = models.TextField(blank=True)
     phone_number = models.CharField(max_length=20)
     email = models.EmailField(blank=True)
     vat_pan = models.CharField(max_length=50, blank=True)
     nid_citizen = models.CharField(max_length=50, blank=True)
     passport_number = models.CharField(max_length=50, blank=True)
     company_name = models.CharField(max_length=255, blank=True)
+
     agent = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True, related_name='clients')
-    billed_by = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True, related_name='billed_clients')
+    billed_by = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True, related_name='billed_clients', blank=True)
     created_date = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True)
     unique_id = models.CharField(max_length=100, unique=True)
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"
+
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"

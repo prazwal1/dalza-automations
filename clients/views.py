@@ -5,7 +5,7 @@ from .models import Client, InternetDetails, InsuranceDetails, TrackingDetails, 
 from .forms import (
     ClientForm, InternetDetailsForm,
     InsuranceDetailsForm, TrackingDetailsForm,
-    UploadedDocumentFormSet
+    UploadedDocumentFormSet, AddressForm
 )
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -48,6 +48,9 @@ class ClientCreateView(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['address_form'] = AddressForm(self.request.POST or None, prefix='address')
+        context['perma_address_form'] = AddressForm(self.request.POST or None, prefix='perma')
+
         if self.request.POST:
             context['internet_form'] = InternetDetailsForm(self.request.POST)
             context['insurance_form'] = InsuranceDetailsForm(self.request.POST)
@@ -66,9 +69,27 @@ class ClientCreateView(CreateView):
         insurance_form = context['insurance_form']
         tracking_form = context['tracking_form']
         document_formset = context['document_formset']
+        address_form = context['address_form']
+        perma_address_form = context['perma_address_form']
+        same_address = self.request.POST.get("same_address") == "on"
 
         # Save the main Client form (mandatory)
-        self.object = form.save()
+        if not (address_form.is_valid() and (perma_address_form.is_valid() or same_address)):
+            return self.form_invalid(form)
+
+        address = address_form.save()
+
+        if same_address:
+            perma_address = address
+        else:
+            perma_address = perma_address_form.save()
+
+        self.object = form.save(commit=False)
+        self.object.address = address
+        self.object.perma_address = perma_address
+        self.object.created_by = self.request.user
+        self.object.agent = self.request.user
+        self.object.save()
 
         # Check if InternetDetails form has data and is valid
         if internet_form.has_changed() and internet_form.is_valid():
@@ -111,12 +132,16 @@ class ClientUpdateView(UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['address_form'] = AddressForm(self.request.POST or None, prefix='address')
+        context['perma_address_form'] = AddressForm(self.request.POST or None, prefix='perma')
         if self.request.POST:
             context['internet_form'] = InternetDetailsForm(self.request.POST, instance=self.object.internetdetails if hasattr(self.object, 'internetdetails') else None)
             context['insurance_form'] = InsuranceDetailsForm(self.request.POST, instance=self.object.insurancedetails if hasattr(self.object, 'insurancedetails') else None)
             context['tracking_form'] = TrackingDetailsForm(self.request.POST, instance=self.object.trackingdetails if hasattr(self.object, 'trackingdetails') else None)
             context['document_formset'] = UploadedDocumentFormSet(self.request.POST, self.request.FILES, instance=self.object)
         else:
+            context['address_form'] = AddressForm(prefix='address', instance=self.object.address)
+            context['perma_address_form'] = AddressForm(prefix='perma', instance=self.object.perma_address)
             context['internet_form'] = InternetDetailsForm(instance=self.object.internetdetails if hasattr(self.object, 'internetdetails') else None)
             context['insurance_form'] = InsuranceDetailsForm(instance=self.object.insurancedetails if hasattr(self.object, 'insurancedetails') else None)
             context['tracking_form'] = TrackingDetailsForm(instance=self.object.trackingdetails if hasattr(self.object, 'trackingdetails') else None)
@@ -129,6 +154,26 @@ class ClientUpdateView(UpdateView):
         insurance_form = context['insurance_form']
         tracking_form = context['tracking_form']
         document_formset = context['document_formset']
+        address_form = context['address_form']
+        perma_address_form = context['perma_address_form']
+        same_address = self.request.POST.get("same_address") == "on"
+
+        # Save the main Client form (mandatory)
+        if not (address_form.is_valid() and (perma_address_form.is_valid() or same_address)):
+            return self.form_invalid(form)
+
+        address = address_form.save()
+
+        if same_address:
+            perma_address = address
+        else:
+            perma_address = perma_address_form.save()
+
+        self.object = form.save(commit=False)
+        self.object.address = address
+        self.object.perma_address = perma_address
+        self.object.save()
+
 
         # Save the main Client form (mandatory)
         self.object = form.save()

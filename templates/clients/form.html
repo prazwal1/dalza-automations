@@ -51,6 +51,52 @@
                         </div>
                     </div>
 
+                    <!-- Address Section -->
+            <div class="card mb-4 border-0 shadow-sm">
+                <div class="card-header bg-dark text-white py-3">
+                    <h5 class="card-title mb-0">
+                        <i class="bi bi-geo me-2"></i>Address Information
+                    </h5>
+                </div>
+                <div class="card-body p-4">
+                    <div class="mb-4">
+                        <h6 class="fw-bold">Temporary Address</h6>
+                        <div class="row g-3">
+                            {% for field in address_form %}
+                            <div class="col-md-6">
+                                <label class="form-label fw-medium" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                {{ field }}
+                                {% for error in field.errors %}
+                                <div class="text-danger small mt-1">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="form-check form-switch mb-4">
+                    <input class="form-check-input" type="checkbox" id="sameAddressSwitch" name="same_address" onchange="togglePermaAddress(this)">
+                        <label class="form-check-label fw-medium" for="sameAddressSwitch">Permanent address is same as temporary address</label>
+                    </div>
+
+                    <div id="permanent-address-section">
+                        <h6 class="fw-bold">Permanent Address</h6>
+                        <div class="row g-3">
+                            {% for field in perma_address_form %}
+                            <div class="col-md-6">
+                                <label class="form-label fw-medium" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                {{ field }}
+                                {% for error in field.errors %}
+                                <div class="text-danger small mt-1">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
                     <!-- Internet Service -->
                     <div class="card mb-4 border-0 shadow-sm">
                         <div class="card-header bg-success text-white py-3" data-bs-toggle="collapse" data-bs-target="#internetServiceCollapse" aria-expanded="false" aria-controls="internetServiceCollapse" style="cursor: pointer;">
@@ -319,6 +365,24 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+function togglePermaAddress(checkbox) {
+    const permaSection = document.getElementById("permanent-address-section");
+    if (checkbox.checked) {
+        permaSection.style.display = "none";
+    } else {
+        permaSection.style.display = "block";
+    }
+}
+
+// Pre-check logic on page load
+document.addEventListener("DOMContentLoaded", function () {
+    const sameAddress = document.getElementById("sameAddressSwitch");
+    if (sameAddress && sameAddress.checked) {
+        document.getElementById("permanent-address-section").style.display = "none";
+    }
+});
+
 </script>
 
 {% endblock %}

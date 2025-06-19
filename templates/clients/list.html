@@ -10,11 +10,27 @@
             ⬇️ Export CSV
         </a>
     </div>
+    
     <form method="post" action="{% url 'import_clients_csv' %}" enctype="multipart/form-data" class="d-flex align-items-center">
         {% csrf_token %}
         <input type="file" name="file" accept=".csv" required class="form-control me-2">
         <button type="submit" class="btn btn-outline-secondary">⬆️ Import CSV</button>
     </form>
+
+    <div class="mb-3">
+    <div class="dropdown d-inline-block">
+        <button class="btn btn-outline-info dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            📥 Download Sample CSV
+        </button>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{% url 'download_sample_csv' %}?type=client_only">Client Only</a></li>
+            <li><a class="dropdown-item" href="{% url 'download_sample_csv' %}?type=client_internet">Client + Internet Details</a></li>
+            <li><a class="dropdown-item" href="{% url 'download_sample_csv' %}?type=client_tracking">Client + Tracking Details</a></li>
+            <li><a class="dropdown-item" href="{% url 'download_sample_csv' %}?type=client_internet_tracking">Client + Internet + Tracking</a></li>
+        </ul>
+    </div>
+</div>
+
 </div>
 
     
