@@ -35,79 +35,412 @@
                         </div>
                         <div class="card-body p-4">
                             <div class="row g-3">
-                                {% for field in form %}
+                                <!-- First row: First Name, Last Name -->
                                 <div class="col-md-6">
-                                    <label class="form-label fw-medium" for="{{ field.id_for_label }}">{{ field.label }}</label>
-                                    {{ field }}
-                                    {% if field.help_text %}
-                                        <div class="form-text">{{ field.help_text }}</div>
+                                    <label class="form-label fw-medium" for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label>
+                                    {{ form.first_name }}
+                                    {% if form.first_name.help_text %}
+                                        <div class="form-text">{{ form.first_name.help_text }}</div>
                                     {% endif %}
-                                    {% for error in field.errors %}
+                                    {% for error in form.first_name.errors %}
                                         <div class="text-danger small mt-1">{{ error }}</div>
                                     {% endfor %}
                                 </div>
-                                {% endfor %}
+                                <div class="col-md-6">
+                                    <label class="form-label fw-medium" for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}</label>
+                                    {{ form.last_name }}
+                                    {% if form.last_name.help_text %}
+                                        <div class="form-text">{{ form.last_name.help_text }}</div>
+                                    {% endif %}
+                                    {% for error in form.last_name.errors %}
+                                        <div class="text-danger small mt-1">{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+
+                                <!-- Second row: Date of Birth, Gender -->
+                                <div class="col-md-6">
+                                    <label class="form-label fw-medium" for="{{ form.dob.id_for_label }}">{{ form.dob.label }}</label>
+                                    {{ form.dob }}
+                                    {% if form.dob.help_text %}
+                                        <div class="form-text">{{ form.dob.help_text }}</div>
+                                    {% endif %}
+                                    {% for error in form.dob.errors %}
+                                        <div class="text-danger small mt-1">{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-medium" for="{{ form.gender.id_for_label }}">{{ form.gender.label }}</label>
+                                    {{ form.gender }}
+                                    {% if form.gender.help_text %}
+                                        <div class="form-text">{{ form.gender.help_text }}</div>
+                                    {% endif %}
+                                    {% for error in form.gender.errors %}
+                                        <div class="text-danger small mt-1">{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+
+                                <!-- Third row: Phone Number, Email Address -->
+                                <div class="col-md-6">
+                                    <label class="form-label fw-medium" for="{{ form.phone_number.id_for_label }}">{{ form.phone_number.label }}</label>
+                                    {{ form.phone_number }}
+                                    {% if form.phone_number.help_text %}
+                                        <div class="form-text">{{ form.phone_number.help_text }}</div>
+                                    {% endif %}
+                                    {% for error in form.phone_number.errors %}
+                                        <div class="text-danger small mt-1">{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-medium" for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+                                    {{ form.email }}
+                                    {% if form.email.help_text %}
+                                        <div class="form-text">{{ form.email.help_text }}</div>
+                                    {% endif %}
+                                    {% for error in form.email.errors %}
+                                        <div class="text-danger small mt-1">{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+
+                                <!-- Fourth row: PAN Number, National ID -->
+                                <div class="col-md-6">
+                                    <label class="form-label fw-medium" for="{{ form.pan_number.id_for_label }}">{{ form.pan_number.label }}</label>
+                                    {{ form.pan_number }}
+                                    {% if form.pan_number.help_text %}
+                                        <div class="form-text">{{ form.pan_number.help_text }}</div>
+                                    {% endif %}
+                                    {% for error in form.pan_number.errors %}
+                                        <div class="text-danger small mt-1">{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-medium" for="{{ form.national_id.id_for_label }}">{{ form.national_id.label }}</label>
+                                    {{ form.national_id }}
+                                    {% if form.national_id.help_text %}
+                                        <div class="form-text">{{ form.national_id.help_text }}</div>
+                                    {% endif %}
+                                    {% for error in form.national_id.errors %}
+                                        <div class="text-danger small mt-1">{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+
+                                <!-- Fifth row: Citizenship Number, Passport Number -->
+                                <div class="col-md-6">
+                                    <label class="form-label fw-medium" for="{{ form.citizenship_number.id_for_label }}">{{ form.citizenship_number.label }}</label>
+                                    {{ form.citizenship_number }}
+                                    {% if form.citizenship_number.help_text %}
+                                        <div class="form-text">{{ form.citizenship_number.help_text }}</div>
+                                    {% endif %}
+                                    {% for error in form.citizenship_number.errors %}
+                                        <div class="text-danger small mt-1">{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-medium" for="{{ form.passport_number.id_for_label }}">{{ form.passport_number.label }}</label>
+                                    {{ form.passport_number }}
+                                    {% if form.passport_number.help_text %}
+                                        <div class="form-text">{{ form.passport_number.help_text }}</div>
+                                    {% endif %}
+                                    {% for error in form.passport_number.errors %}
+                                        <div class="text-danger small mt-1">{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+
+                                <!-- Sixth row: Company Name (full width) -->
+                                {% if form.company_name %}
+                                <div class="col-12">
+                                    <label class="form-label fw-medium" for="{{ form.company_name.id_for_label }}">{{ form.company_name.label }}</label>
+                                    {{ form.company_name }}
+                                    {% if form.company_name.help_text %}
+                                        <div class="form-text">{{ form.company_name.help_text }}</div>
+                                    {% endif %}
+                                    {% for error in form.company_name.errors %}
+                                        <div class="text-danger small mt-1">{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
 
                     <!-- Address Section -->
-            <div class="card mb-4 border-0 shadow-sm">
-                <div class="card-header bg-dark text-white py-3">
-                    <h5 class="card-title mb-0">
-                        <i class="bi bi-geo me-2"></i>Address Information
-                    </h5>
-                </div>
-                <div class="card-body p-4">
-                    <div class="mb-4">
-                        <h6 class="fw-bold">Temporary Address</h6>
-                        <div class="row g-3">
-                            {% for field in address_form %}
-                            <div class="col-md-6">
-                                <label class="form-label fw-medium" for="{{ field.id_for_label }}">{{ field.label }}</label>
-                                {{ field }}
-                                {% for error in field.errors %}
-                                <div class="text-danger small mt-1">{{ error }}</div>
-                                {% endfor %}
+                    <div class="card mb-4 border-0 shadow-sm">
+                        <div class="card-header bg-dark text-white py-3">
+                            <h5 class="card-title mb-0">
+                                <i class="bi bi-geo me-2"></i>Address Information
+                            </h5>
+                        </div>
+                        <div class="card-body p-4">
+                            <div class="mb-4">
+                                <h6 class="fw-bold text-primary mb-3">Current Address</h6>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-medium" for="{{ address_form.street_name.id_for_label }}">{{ address_form.street_name.label }}</label>
+                                        {{ address_form.street_name }}
+                                        {% for error in address_form.street_name.errors %}
+                                        <div class="text-danger small mt-1">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-medium" for="{{ address_form.ward_no.id_for_label }}">{{ address_form.ward_no.label }}</label>
+                                        {{ address_form.ward_no }}
+                                        {% for error in address_form.ward_no.errors %}
+                                        <div class="text-danger small mt-1">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-medium" for="{{ address_form.city.id_for_label }}">{{ address_form.city.label }}</label>
+                                        {{ address_form.city }}
+                                        {% for error in address_form.city.errors %}
+                                        <div class="text-danger small mt-1">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-medium" for="{{ address_form.district.id_for_label }}">{{ address_form.district.label }}</label>
+                                        {{ address_form.district }}
+                                        {% for error in address_form.district.errors %}
+                                        <div class="text-danger small mt-1">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-medium" for="{{ address_form.province.id_for_label }}">{{ address_form.province.label }}</label>
+                                        {{ address_form.province }}
+                                        {% for error in address_form.province.errors %}
+                                        <div class="text-danger small mt-1">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-medium" for="{{ address_form.country.id_for_label }}">{{ address_form.country.label }}</label>
+                                        {{ address_form.country }}
+                                        {% for error in address_form.country.errors %}
+                                        <div class="text-danger small mt-1">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
                             </div>
-                            {% endfor %}
+
+                            <div class="form-check form-switch mb-4">
+                                <input class="form-check-input" type="checkbox" id="sameAddressSwitch" name="same_address" onchange="togglePermaAddress(this)" checked>
+                                <label class="form-check-label fw-medium" for="sameAddressSwitch">
+                                    <i class="bi bi-check-circle me-1"></i>Permanent address is same as current address
+                                </label>
+                            </div>
+
+                            <div id="permanent-address-section" style="display: none;">
+                                <h6 class="fw-bold text-secondary mb-3">Permanent Address</h6>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-medium" for="{{ perma_address_form.street_name.id_for_label }}">{{ perma_address_form.street_name.label }}</label>
+                                        {{ perma_address_form.street_name }}
+                                        {% for error in perma_address_form.street_name.errors %}
+                                        <div class="text-danger small mt-1">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-medium" for="{{ perma_address_form.ward_no.id_for_label }}">{{ perma_address_form.ward_no.label }}</label>
+                                        {{ perma_address_form.ward_no }}
+                                        {% for error in perma_address_form.ward_no.errors %}
+                                        <div class="text-danger small mt-1">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-medium" for="{{ perma_address_form.city.id_for_label }}">{{ perma_address_form.city.label }}</label>
+                                        {{ perma_address_form.city }}
+                                        {% for error in perma_address_form.city.errors %}
+                                        <div class="text-danger small mt-1">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-medium" for="{{ perma_address_form.district.id_for_label }}">{{ perma_address_form.district.label }}</label>
+                                        {{ perma_address_form.district }}
+                                        {% for error in perma_address_form.district.errors %}
+                                        <div class="text-danger small mt-1">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-medium" for="{{ perma_address_form.province.id_for_label }}">{{ perma_address_form.province.label }}</label>
+                                        {{ perma_address_form.province }}
+                                        {% for error in perma_address_form.province.errors %}
+                                        <div class="text-danger small mt-1">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-medium" for="{{ perma_address_form.country.id_for_label }}">{{ perma_address_form.country.label }}</label>
+                                        {{ perma_address_form.country }}
+                                        {% for error in perma_address_form.country.errors %}
+                                        <div class="text-danger small mt-1">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-
-                    <div class="form-check form-switch mb-4">
-                    <input class="form-check-input" type="checkbox" id="sameAddressSwitch" name="same_address" onchange="togglePermaAddress(this)">
-                        <label class="form-check-label fw-medium" for="sameAddressSwitch">Permanent address is same as temporary address</label>
-                    </div>
-
-                    <div id="permanent-address-section">
-                        <h6 class="fw-bold">Permanent Address</h6>
-                        <div class="row g-3">
-                            {% for field in perma_address_form %}
-                            <div class="col-md-6">
-                                <label class="form-label fw-medium" for="{{ field.id_for_label }}">{{ field.label }}</label>
-                                {{ field }}
-                                {% for error in field.errors %}
-                                <div class="text-danger small mt-1">{{ error }}</div>
-                                {% endfor %}
-                            </div>
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-
 
                     <!-- Internet Service -->
                     <div class="card mb-4 border-0 shadow-sm">
                         <div class="card-header bg-success text-white py-3" data-bs-toggle="collapse" data-bs-target="#internetServiceCollapse" aria-expanded="false" aria-controls="internetServiceCollapse" style="cursor: pointer;">
                             <h5 class="card-title mb-0">
                                 <i class="bi bi-wifi me-2"></i>Internet Service Details
+                                <i class="bi bi-chevron-down float-end"></i>
                             </h5>
                         </div>
                         <div id="internetServiceCollapse" class="collapse">
                             <div class="card-body p-4">
                                 <div class="row g-3">
-                                    {% for field in internet_form %}
+                                    <!-- First row: Mac User, Username -->
+                                    {% if internet_form.mac_user %}
+                                    <div class="col-md-6">
+                                        <div class="form-check form-switch">
+                                            {{ internet_form.mac_user }}
+                                            <label class="form-check-label fw-medium" for="{{ internet_form.mac_user.id_for_label }}">
+                                                {{ internet_form.mac_user.label }}
+                                            </label>
+                                        </div>
+                                        {% for error in internet_form.mac_user.errors %}
+                                            <div class="text-danger small mt-1">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                    {% endif %}
+                                    {% if internet_form.username %}
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-medium" for="{{ internet_form.username.id_for_label }}">{{ internet_form.username.label }}</label>
+                                        {{ internet_form.username }}
+                                        {% for error in internet_form.username.errors %}
+                                            <div class="text-danger small mt-1">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                    {% endif %}
+
+                                    <!-- Second row: Password, Service Plan Enabled -->
+                                    {% if internet_form.password %}
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-medium" for="{{ internet_form.password.id_for_label }}">{{ internet_form.password.label }}</label>
+                                        {{ internet_form.password }}
+                                        {% for error in internet_form.password.errors %}
+                                            <div class="text-danger small mt-1">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                    {% endif %}
+                                    {% if internet_form.service_plan_enabled %}
+                                    <div class="col-md-6">
+                                        <div class="form-check form-switch mt-4">
+                                            {{ internet_form.service_plan_enabled }}
+                                            <label class="form-check-label fw-medium" for="{{ internet_form.service_plan_enabled.id_for_label }}">
+                                                {{ internet_form.service_plan_enabled.label }}
+                                            </label>
+                                        </div>
+                                        {% for error in internet_form.service_plan_enabled.errors %}
+                                            <div class="text-danger small mt-1">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                    {% endif %}
+
+                                    <!-- Third row: Mac Address, User Group -->
+                                    {% if internet_form.mac_address %}
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-medium" for="{{ internet_form.mac_address.id_for_label }}">{{ internet_form.mac_address.label }}</label>
+                                        {{ internet_form.mac_address }}
+                                        {% for error in internet_form.mac_address.errors %}
+                                            <div class="text-danger small mt-1">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                    {% endif %}
+                                    {% if internet_form.user_group %}
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-medium" for="{{ internet_form.user_group.id_for_label }}">{{ internet_form.user_group.label }}</label>
+                                        {{ internet_form.user_group }}
+                                        {% for error in internet_form.user_group.errors %}
+                                            <div class="text-danger small mt-1">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                    {% endif %}
+
+                                    <!-- Fourth row: Expiry Date, Simultaneous -->
+                                    {% if internet_form.account_expiry_date %}
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-medium" for="{{ internet_form.account_expiry_date.id_for_label }}">{{ internet_form.account_expiry_date.label }}</label>
+                                        {{ internet_form.account_expiry_date }}
+                                        {% for error in internet_form.account_expiry_date.errors %}
+                                            <div class="text-danger small mt-1">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                    {% endif %}
+                                    {% if internet_form.simultaneous %}
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-medium" for="{{ internet_form.simultaneous.id_for_label }}">{{ internet_form.simultaneous.label }}</label>
+                                        {{ internet_form.simultaneous }}
+                                        {% for error in internet_form.simultaneous.errors %}
+                                            <div class="text-danger small mt-1">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                    {% endif %}
+
+                                    <!-- Fifth row: Download Limit, Upload Limit -->
+                                    {% if internet_form.download_limit %}
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-medium" for="{{ internet_form.download_limit.id_for_label }}">{{ internet_form.download_limit.label }}</label>
+                                        {{ internet_form.download_limit }}
+                                        {% for error in internet_form.download_limit.errors %}
+                                            <div class="text-danger small mt-1">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                    {% endif %}
+                                    {% if internet_form.upload_limit %}
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-medium" for="{{ internet_form.upload_limit.id_for_label }}">{{ internet_form.upload_limit.label }}</label>
+                                        {{ internet_form.upload_limit }}
+                                        {% for error in internet_form.upload_limit.errors %}
+                                            <div class="text-danger small mt-1">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                    {% endif %}
+
+                                    <!-- Sixth row: Total Limit, Radius Attributes -->
+                                    {% if internet_form.total_limit %}
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-medium" for="{{ internet_form.total_limit.id_for_label }}">{{ internet_form.total_limit.label }}</label>
+                                        {{ internet_form.total_limit }}
+                                        {% for error in internet_form.total_limit.errors %}
+                                            <div class="text-danger small mt-1">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                    {% endif %}
+                                    {% if internet_form.radius_attributes %}
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-medium" for="{{ internet_form.radius_attributes.id_for_label }}">{{ internet_form.radius_attributes.label }}</label>
+                                        {{ internet_form.radius_attributes }}
+                                        {% for error in internet_form.radius_attributes.errors %}
+                                            <div class="text-danger small mt-1">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                    {% endif %}
+
+                                    <!-- Seventh row: Comments (full width) -->
+                                    {% if internet_form.comments %}
+                                    <div class="col-12">
+                                        <label class="form-label fw-medium" for="{{ internet_form.comments.id_for_label }}">{{ internet_form.comments.label }}</label>
+                                        {{ internet_form.comments }}
+                                        {% for error in internet_form.comments.errors %}
+                                            <div class="text-danger small mt-1">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Insurance Details -->
+                    <div class="card mb-4 border-0 shadow-sm">
+                        <div class="card-header bg-info text-white py-3" data-bs-toggle="collapse" data-bs-target="#insuranceDetailsCollapse" aria-expanded="false" aria-controls="insuranceDetailsCollapse" style="cursor: pointer;">
+                            <h5 class="card-title mb-0">
+                                <i class="bi bi-shield-check me-2"></i>Insurance Details
+                                <i class="bi bi-chevron-down float-end"></i>
+                            </h5>
+                        </div>
+                        <div id="insuranceDetailsCollapse" class="collapse">
+                            <div class="card-body p-4">
+                                <div class="row g-3">
+                                    {% for field in insurance_form %}
                                     <div class="col-md-6">
                                         <label class="form-label fw-medium" for="{{ field.id_for_label }}">{{ field.label }}</label>
                                         {{ field }}
@@ -124,36 +457,12 @@
                         </div>
                     </div>
 
-                    <!-- Insurance Details -->
-                    <div class="card mb-4 border-0 shadow-sm">
-                        <div class="card-header bg-info text-white py-3" data-bs-toggle="collapse" data-bs-target="#insuranceDetailsCollapse" aria-expanded="false" aria-controls="insuranceDetailsCollapse" style="cursor: pointer;">
-                            <h5 class="card-title mb-0">
-                                <i class="bi bi-shield-check me-2"></i>Insurance Details
-                            </h5>
-                        </div>
-                        <div id="insuranceDetailsCollapse" class="collapse">
-                            <div class="card-body p-4">
-                                {% for field in insurance_form %}
-                                <div class="mb-3">
-                                    <label class="form-label fw-medium" for="{{ field.id_for_label }}">{{ field.label }}</label>
-                                    {{ field }}
-                                    {% if field.help_text %}
-                                        <div class="form-text">{{ field.help_text }}</div>
-                                    {% endif %}
-                                    {% for error in field.errors %}
-                                        <div class="text-danger small mt-1">{{ error }}</div>
-                                    {% endfor %}
-                                </div>
-                                {% endfor %}
-                            </div>
-                        </div>
-                    </div>
-
                     <!-- Travel & Tracking -->
                     <div class="card mb-4 border-0 shadow-sm">
                         <div class="card-header bg-warning text-dark py-3" data-bs-toggle="collapse" data-bs-target="#trackingDetailsCollapse" aria-expanded="false" aria-controls="trackingDetailsCollapse" style="cursor: pointer;">
                             <h5 class="card-title mb-0">
                                 <i class="bi bi-geo-alt me-2"></i>Travel & Tracking Details
+                                <i class="bi bi-chevron-down float-end"></i>
                             </h5>
                         </div>
                         <div id="trackingDetailsCollapse" class="collapse">
@@ -186,6 +495,7 @@
                         <div class="card-header bg-secondary text-white py-3" data-bs-toggle="collapse" data-bs-target="#documentUploadCollapse" aria-expanded="false" aria-controls="documentUploadCollapse" style="cursor: pointer;">
                             <h5 class="card-title mb-0">
                                 <i class="bi bi-file-earmark-arrow-up me-2"></i>Document Upload
+                                <i class="bi bi-chevron-down float-end"></i>
                             </h5>
                         </div>
                         <div id="documentUploadCollapse" class="collapse">
@@ -287,6 +597,34 @@
 .card-header:hover {
     opacity: 0.9;
 }
+
+.card-header[data-bs-toggle="collapse"] {
+    position: relative;
+}
+
+.card-header[data-bs-toggle="collapse"]:after {
+    content: '\F282';
+    font-family: "bootstrap-icons";
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: transform 0.2s ease;
+}
+
+.card-header[data-bs-toggle="collapse"].collapsed:after {
+    transform: translateY(-50%) rotate(180deg);
+}
+
+.form-check-input:checked {
+    background-color: #198754;
+    border-color: #198754;
+}
+
+.form-switch .form-check-input:focus {
+    border-color: #198754;
+    box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25);
+}
 </style>
 
 <script>
@@ -380,6 +718,34 @@ document.addEventListener("DOMContentLoaded", function () {
     const sameAddress = document.getElementById("sameAddressSwitch");
     if (sameAddress && sameAddress.checked) {
         document.getElementById("permanent-address-section").style.display = "none";
+    }
+    
+    // Initialize collapse chevrons
+    document.querySelectorAll('[data-bs-toggle="collapse"]').forEach(element => {
+        element.addEventListener('click', function() {
+            this.classList.toggle('collapsed');
+        });
+    });
+});
+
+// Mac User field toggle for password requirement
+document.addEventListener('DOMContentLoaded', function() {
+    const macUserField = document.querySelector('input[name*="mac_user"]');
+    const passwordField = document.querySelector('input[name*="password"]');
+    
+    if (macUserField && passwordField) {
+        function togglePasswordRequired() {
+            if (macUserField.checked) {
+                passwordField.removeAttribute('required');
+                passwordField.closest('.col-md-6').style.opacity = '0.6';
+            } else {
+                passwordField.setAttribute('required', 'required');
+                passwordField.closest('.col-md-6').style.opacity = '1';
+            }
+        }
+        
+        macUserField.addEventListener('change', togglePasswordRequired);
+        togglePasswordRequired(); // Initialize on page load
     }
 });
 
