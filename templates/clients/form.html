@@ -103,34 +103,34 @@
 
                                 <!-- Fourth row: PAN Number, National ID -->
                                 <div class="col-md-6">
-                                    <label class="form-label fw-medium" for="{{ form.pan_number.id_for_label }}">{{ form.pan_number.label }}</label>
-                                    {{ form.pan_number }}
-                                    {% if form.pan_number.help_text %}
-                                        <div class="form-text">{{ form.pan_number.help_text }}</div>
+                                    <label class="form-label fw-medium" for="{{ form.vat_pan.id_for_label }}">{{ form.vat_pan.label }}</label>
+                                    {{ form.vat_pan }}
+                                    {% if form.vat_pan.help_text %}
+                                        <div class="form-text">{{ form.vat_pan.help_text }}</div>
                                     {% endif %}
-                                    {% for error in form.pan_number.errors %}
+                                    {% for error in form.vat_pan.errors %}
                                         <div class="text-danger small mt-1">{{ error }}</div>
                                     {% endfor %}
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="form-label fw-medium" for="{{ form.national_id.id_for_label }}">{{ form.national_id.label }}</label>
-                                    {{ form.national_id }}
-                                    {% if form.national_id.help_text %}
-                                        <div class="form-text">{{ form.national_id.help_text }}</div>
+                                    <label class="form-label fw-medium" for="{{ form.nid_citizen.id_for_label }}">National ID Number</label>
+                                    {{ form.nid_citizen }}
+                                    {% if form.nid_citizen.help_text %}
+                                        <div class="form-text">{{ form.nid_citizen.help_text }}</div>
                                     {% endif %}
-                                    {% for error in form.national_id.errors %}
+                                    {% for error in form.nid_citizen.errors %}
                                         <div class="text-danger small mt-1">{{ error }}</div>
                                     {% endfor %}
                                 </div>
 
                                 <!-- Fifth row: Citizenship Number, Passport Number -->
                                 <div class="col-md-6">
-                                    <label class="form-label fw-medium" for="{{ form.citizenship_number.id_for_label }}">{{ form.citizenship_number.label }}</label>
-                                    {{ form.citizenship_number }}
-                                    {% if form.citizenship_number.help_text %}
-                                        <div class="form-text">{{ form.citizenship_number.help_text }}</div>
+                                    <label class="form-label fw-medium" for="{{ form.company_name.id_for_label }}">{{ form.company_name.label }}</label>
+                                    {{ form.company_name }}
+                                    {% if form.company_name.help_text %}
+                                        <div class="form-text">{{ form.company_name.help_text }}</div>
                                     {% endif %}
-                                    {% for error in form.citizenship_number.errors %}
+                                    {% for error in form.company_name.errors %}
                                         <div class="text-danger small mt-1">{{ error }}</div>
                                     {% endfor %}
                                 </div>
@@ -146,7 +146,7 @@
                                 </div>
 
                                 <!-- Sixth row: Company Name (full width) -->
-                                {% if form.company_name %}
+                                {% comment %} {% if form.company_name %}
                                 <div class="col-12">
                                     <label class="form-label fw-medium" for="{{ form.company_name.id_for_label }}">{{ form.company_name.label }}</label>
                                     {{ form.company_name }}
@@ -157,7 +157,7 @@
                                         <div class="text-danger small mt-1">{{ error }}</div>
                                     {% endfor %}
                                 </div>
-                                {% endif %}
+                                {% endif %} {% endcomment %}
                             </div>
                         </div>
                     </div>
@@ -624,6 +624,52 @@
 .form-switch .form-check-input:focus {
     border-color: #198754;
     box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25);
+}
+
+/* Form field alignment fixes */
+.card-body .row.g-3 {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card-body .row.g-3 .col-md-6 {
+    display: flex;
+    flex-direction: column;
+    min-height: 80px; /* Ensures consistent row heights */
+}
+
+.card-body .row.g-3 .col-md-6 .form-label {
+    margin-bottom: 8px;
+    min-height: 24px; /* Consistent label height */
+    display: flex;
+    align-items: flex-end;
+}
+
+.card-body .row.g-3 .col-md-6 .form-control,
+.card-body .row.g-3 .col-md-6 .form-select {
+    flex: 1;
+    margin-bottom: auto;
+}
+
+/* Ensure full-width fields maintain proper spacing */
+.card-body .row.g-3 .col-12 {
+    min-height: 80px;
+}
+
+/* Address section specific fixes */
+.card-body .row.g-3 .col-md-6:empty {
+    min-height: 80px; /* Maintains spacing even for empty columns */
+}
+
+/* Fix for the missing country field alignment */
+.address-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.address-row .col-md-6:last-child:nth-child(odd) {
+    flex: 0 0 48%; /* Ensures single field in row takes proper width */
 }
 </style>
 
