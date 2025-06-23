@@ -286,7 +286,6 @@
                         <div id="internetServiceCollapse" class="collapse">
                             <div class="card-body p-4">
                                 <div class="row g-3">
-                                    <!-- First row: Mac User, Username -->
                                     {% if internet_form.mac_user %}
                                     <div class="col-md-6">
                                         <div class="form-check form-switch">
@@ -300,17 +299,17 @@
                                         {% endfor %}
                                     </div>
                                     {% endif %}
-                                    {% if internet_form.username %}
+
+                                    {% if internet_form.username_or_mac %}
                                     <div class="col-md-6">
-                                        <label class="form-label fw-medium" for="{{ internet_form.username.id_for_label }}">{{ internet_form.username.label }}</label>
-                                        {{ internet_form.username }}
-                                        {% for error in internet_form.username.errors %}
+                                        <label class="form-label fw-medium" for="{{ internet_form.username_or_mac.id_for_label }}">{{ internet_form.username_or_mac.label }}</label>
+                                        {{ internet_form.username_or_mac }}
+                                        {% for error in internet_form.username_or_mac.errors %}
                                             <div class="text-danger small mt-1">{{ error }}</div>
                                         {% endfor %}
                                     </div>
                                     {% endif %}
 
-                                    <!-- Second row: Password, Service Plan Enabled -->
                                     {% if internet_form.password %}
                                     <div class="col-md-6">
                                         <label class="form-label fw-medium" for="{{ internet_form.password.id_for_label }}">{{ internet_form.password.label }}</label>
@@ -320,30 +319,51 @@
                                         {% endfor %}
                                     </div>
                                     {% endif %}
-                                    {% if internet_form.service_plan_enabled %}
+
+                                    {% if internet_form.enable %}
                                     <div class="col-md-6">
                                         <div class="form-check form-switch mt-4">
-                                            {{ internet_form.service_plan_enabled }}
-                                            <label class="form-check-label fw-medium" for="{{ internet_form.service_plan_enabled.id_for_label }}">
-                                                {{ internet_form.service_plan_enabled.label }}
+                                            {{ internet_form.enable }}
+                                            <label class="form-check-label fw-medium" for="{{ internet_form.enable.id_for_label }}">
+                                                {{ internet_form.enable.label }}
                                             </label>
                                         </div>
-                                        {% for error in internet_form.service_plan_enabled.errors %}
+                                        {% for error in internet_form.enable.errors %}
                                             <div class="text-danger small mt-1">{{ error }}</div>
                                         {% endfor %}
                                     </div>
                                     {% endif %}
 
-                                    <!-- Third row: Mac Address, User Group -->
-                                    {% if internet_form.mac_address %}
+                                    {% if internet_form.mac_address_of_cm %}
                                     <div class="col-md-6">
-                                        <label class="form-label fw-medium" for="{{ internet_form.mac_address.id_for_label }}">{{ internet_form.mac_address.label }}</label>
-                                        {{ internet_form.mac_address }}
-                                        {% for error in internet_form.mac_address.errors %}
+                                        <label class="form-label fw-medium" for="{{ internet_form.mac_address_of_cm.id_for_label }}">{{ internet_form.mac_address_of_cm.label }}</label>
+                                        {{ internet_form.mac_address_of_cm }}
+                                        {% for error in internet_form.mac_address_of_cm.errors %}
                                             <div class="text-danger small mt-1">{{ error }}</div>
                                         {% endfor %}
                                     </div>
                                     {% endif %}
+
+                                    {% if internet_form.simultaneous_use %}
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-medium" for="{{ internet_form.simultaneous_use.id_for_label }}">{{ internet_form.simultaneous_use.label }}</label>
+                                        {{ internet_form.simultaneous_use }}
+                                        {% for error in internet_form.simultaneous_use.errors %}
+                                            <div class="text-danger small mt-1">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                    {% endif %}
+
+                                    {% if internet_form.service_plan %}
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-medium" for="{{ internet_form.service_plan.id_for_label }}">{{ internet_form.service_plan.label }}</label>
+                                        {{ internet_form.service_plan }}
+                                        {% for error in internet_form.service_plan.errors %}
+                                            <div class="text-danger small mt-1">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                    {% endif %}
+
                                     {% if internet_form.user_group %}
                                     <div class="col-md-6">
                                         <label class="form-label fw-medium" for="{{ internet_form.user_group.id_for_label }}">{{ internet_form.user_group.label }}</label>
@@ -354,27 +374,6 @@
                                     </div>
                                     {% endif %}
 
-                                    <!-- Fourth row: Expiry Date, Simultaneous -->
-                                    {% if internet_form.account_expiry_date %}
-                                    <div class="col-md-6">
-                                        <label class="form-label fw-medium" for="{{ internet_form.account_expiry_date.id_for_label }}">{{ internet_form.account_expiry_date.label }}</label>
-                                        {{ internet_form.account_expiry_date }}
-                                        {% for error in internet_form.account_expiry_date.errors %}
-                                            <div class="text-danger small mt-1">{{ error }}</div>
-                                        {% endfor %}
-                                    </div>
-                                    {% endif %}
-                                    {% if internet_form.simultaneous %}
-                                    <div class="col-md-6">
-                                        <label class="form-label fw-medium" for="{{ internet_form.simultaneous.id_for_label }}">{{ internet_form.simultaneous.label }}</label>
-                                        {{ internet_form.simultaneous }}
-                                        {% for error in internet_form.simultaneous.errors %}
-                                            <div class="text-danger small mt-1">{{ error }}</div>
-                                        {% endfor %}
-                                    </div>
-                                    {% endif %}
-
-                                    <!-- Fifth row: Download Limit, Upload Limit -->
                                     {% if internet_form.download_limit %}
                                     <div class="col-md-6">
                                         <label class="form-label fw-medium" for="{{ internet_form.download_limit.id_for_label }}">{{ internet_form.download_limit.label }}</label>
@@ -384,6 +383,7 @@
                                         {% endfor %}
                                     </div>
                                     {% endif %}
+
                                     {% if internet_form.upload_limit %}
                                     <div class="col-md-6">
                                         <label class="form-label fw-medium" for="{{ internet_form.upload_limit.id_for_label }}">{{ internet_form.upload_limit.label }}</label>
@@ -394,7 +394,6 @@
                                     </div>
                                     {% endif %}
 
-                                    <!-- Sixth row: Total Limit, Radius Attributes -->
                                     {% if internet_form.total_limit %}
                                     <div class="col-md-6">
                                         <label class="form-label fw-medium" for="{{ internet_form.total_limit.id_for_label }}">{{ internet_form.total_limit.label }}</label>
@@ -404,22 +403,32 @@
                                         {% endfor %}
                                     </div>
                                     {% endif %}
-                                    {% if internet_form.radius_attributes %}
+
+                                    {% if internet_form.radius_attribute %}
                                     <div class="col-md-6">
-                                        <label class="form-label fw-medium" for="{{ internet_form.radius_attributes.id_for_label }}">{{ internet_form.radius_attributes.label }}</label>
-                                        {{ internet_form.radius_attributes }}
-                                        {% for error in internet_form.radius_attributes.errors %}
+                                        <label class="form-label fw-medium" for="{{ internet_form.radius_attribute.id_for_label }}">{{ internet_form.radius_attribute.label }}</label>
+                                        {{ internet_form.radius_attribute }}
+                                        {% for error in internet_form.radius_attribute.errors %}
                                             <div class="text-danger small mt-1">{{ error }}</div>
                                         {% endfor %}
                                     </div>
                                     {% endif %}
 
-                                    <!-- Seventh row: Comments (full width) -->
-                                    {% if internet_form.comments %}
+                                    {% if internet_form.account_expiry_date %}
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-medium" for="{{ internet_form.account_expiry_date.id_for_label }}">{{ internet_form.account_expiry_date.label }}</label>
+                                        {{ internet_form.account_expiry_date }}
+                                        {% for error in internet_form.account_expiry_date.errors %}
+                                            <div class="text-danger small mt-1">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                    {% endif %}
+
+                                    {% if internet_form.radius_comments %}
                                     <div class="col-12">
-                                        <label class="form-label fw-medium" for="{{ internet_form.comments.id_for_label }}">{{ internet_form.comments.label }}</label>
-                                        {{ internet_form.comments }}
-                                        {% for error in internet_form.comments.errors %}
+                                        <label class="form-label fw-medium" for="{{ internet_form.radius_comments.id_for_label }}">{{ internet_form.radius_comments.label }}</label>
+                                        {{ internet_form.radius_comments }}
+                                        {% for error in internet_form.radius_comments.errors %}
                                             <div class="text-danger small mt-1">{{ error }}</div>
                                         {% endfor %}
                                     </div>
@@ -428,6 +437,7 @@
                             </div>
                         </div>
                     </div>
+
 
                     <!-- Insurance Details -->
                     <div class="card mb-4 border-0 shadow-sm">
@@ -559,12 +569,6 @@
 .card {
     transition: all 0.2s ease;
 }
-
-.card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
-}
-
 .form-control:focus {
     border-color: #0d6efd;
     box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
