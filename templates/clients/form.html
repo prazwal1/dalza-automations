@@ -26,141 +26,123 @@
                 <!-- Main Form Column -->
                 <div class="col-lg-8">
                     
-                    <!-- Personal Information (Mandatory, non-collapsible) -->
-                    <div class="card mb-4 border-0 shadow-sm">
-                        <div class="card-header bg-primary text-white py-3">
-                            <h5 class="card-title mb-0">
-                                <i class="bi bi-person me-2"></i>Personal Information
-                            </h5>
+            <!-- Personal Information (Mandatory, non-collapsible) -->
+            <div class="card mb-4 border-0 shadow-sm">
+                <div class="card-header bg-primary text-white py-3">
+                    <h5 class="card-title mb-0">
+                        <i class="bi bi-person me-2"></i>Personal Information
+                    </h5>
+                </div>
+                <div class="card-body p-4">
+                    <div class="row g-3">
+                        <!-- First row: First Name, Last Name -->
+                        <div class="col-md-6">
+                            <label class="form-label fw-medium" for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label>
+                            {{ form.first_name }}
+                            {% for error in form.first_name.errors %}
+                                <div class="text-danger small mt-1">{{ error }}</div>
+                            {% endfor %}
                         </div>
-                        <div class="card-body p-4">
-                            <div class="row g-3">
-                                <!-- First row: First Name, Last Name -->
-                                <div class="col-md-6">
-                                    <label class="form-label fw-medium" for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label>
-                                    {{ form.first_name }}
-                                    {% if form.first_name.help_text %}
-                                        <div class="form-text">{{ form.first_name.help_text }}</div>
-                                    {% endif %}
-                                    {% for error in form.first_name.errors %}
-                                        <div class="text-danger small mt-1">{{ error }}</div>
-                                    {% endfor %}
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label fw-medium" for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}</label>
-                                    {{ form.last_name }}
-                                    {% if form.last_name.help_text %}
-                                        <div class="form-text">{{ form.last_name.help_text }}</div>
-                                    {% endif %}
-                                    {% for error in form.last_name.errors %}
-                                        <div class="text-danger small mt-1">{{ error }}</div>
-                                    {% endfor %}
-                                </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-medium" for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}</label>
+                            {{ form.last_name }}
+                            {% for error in form.last_name.errors %}
+                                <div class="text-danger small mt-1">{{ error }}</div>
+                            {% endfor %}
+                        </div>
 
-                                <!-- Second row: Date of Birth, Gender -->
-                                <div class="col-md-6">
-                                    <label class="form-label fw-medium" for="{{ form.dob.id_for_label }}">{{ form.dob.label }}</label>
-                                    {{ form.dob }}
-                                    {% if form.dob.help_text %}
-                                        <div class="form-text">{{ form.dob.help_text }}</div>
-                                    {% endif %}
-                                    {% for error in form.dob.errors %}
-                                        <div class="text-danger small mt-1">{{ error }}</div>
-                                    {% endfor %}
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label fw-medium" for="{{ form.gender.id_for_label }}">{{ form.gender.label }}</label>
-                                    {{ form.gender }}
-                                    {% if form.gender.help_text %}
-                                        <div class="form-text">{{ form.gender.help_text }}</div>
-                                    {% endif %}
-                                    {% for error in form.gender.errors %}
-                                        <div class="text-danger small mt-1">{{ error }}</div>
-                                    {% endfor %}
-                                </div>
+                        <!-- Second row: DOB, Gender -->
+                        <div class="col-md-6">
+                            <label class="form-label fw-medium" for="{{ form.dob.id_for_label }}">{{ form.dob.label }}</label>
+                            {{ form.dob }}
+                            {% for error in form.dob.errors %}
+                                <div class="text-danger small mt-1">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-medium" for="{{ form.gender.id_for_label }}">{{ form.gender.label }}</label>
+                            {{ form.gender }}
+                            {% for error in form.gender.errors %}
+                                <div class="text-danger small mt-1">{{ error }}</div>
+                            {% endfor %}
+                        </div>
 
-                                <!-- Third row: Phone Number, Email Address -->
-                                <div class="col-md-6">
-                                    <label class="form-label fw-medium" for="{{ form.phone_number.id_for_label }}">{{ form.phone_number.label }}</label>
-                                    {{ form.phone_number }}
-                                    {% if form.phone_number.help_text %}
-                                        <div class="form-text">{{ form.phone_number.help_text }}</div>
-                                    {% endif %}
-                                    {% for error in form.phone_number.errors %}
-                                        <div class="text-danger small mt-1">{{ error }}</div>
-                                    {% endfor %}
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label fw-medium" for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
-                                    {{ form.email }}
-                                    {% if form.email.help_text %}
-                                        <div class="form-text">{{ form.email.help_text }}</div>
-                                    {% endif %}
-                                    {% for error in form.email.errors %}
-                                        <div class="text-danger small mt-1">{{ error }}</div>
-                                    {% endfor %}
-                                </div>
+                        <!-- Third row: Nationality, Phone -->
+                        <div class="col-md-6">
+                            <label class="form-label fw-medium" for="{{ form.nationality.id_for_label }}">{{ form.nationality.label }}</label>
+                            {{ form.nationality }}
+                            {% for error in form.nationality.errors %}
+                                <div class="text-danger small mt-1">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-medium" for="{{ form.phone_number.id_for_label }}">{{ form.phone_number.label }}</label>
+                            {{ form.phone_number }}
+                            {% for error in form.phone_number.errors %}
+                                <div class="text-danger small mt-1">{{ error }}</div>
+                            {% endfor %}
+                        </div>
 
-                                <!-- Fourth row: PAN Number, National ID -->
-                                <div class="col-md-6">
-                                    <label class="form-label fw-medium" for="{{ form.vat_pan.id_for_label }}">{{ form.vat_pan.label }}</label>
-                                    {{ form.vat_pan }}
-                                    {% if form.vat_pan.help_text %}
-                                        <div class="form-text">{{ form.vat_pan.help_text }}</div>
-                                    {% endif %}
-                                    {% for error in form.vat_pan.errors %}
-                                        <div class="text-danger small mt-1">{{ error }}</div>
-                                    {% endfor %}
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label fw-medium" for="{{ form.nid_citizen.id_for_label }}">National ID Number</label>
-                                    {{ form.nid_citizen }}
-                                    {% if form.nid_citizen.help_text %}
-                                        <div class="form-text">{{ form.nid_citizen.help_text }}</div>
-                                    {% endif %}
-                                    {% for error in form.nid_citizen.errors %}
-                                        <div class="text-danger small mt-1">{{ error }}</div>
-                                    {% endfor %}
-                                </div>
+                        <!-- Fourth row: Email, PAN -->
+                        <div class="col-md-6">
+                            <label class="form-label fw-medium" for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+                            {{ form.email }}
+                            {% for error in form.email.errors %}
+                                <div class="text-danger small mt-1">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-medium" for="{{ form.vat_pan.id_for_label }}">{{ form.vat_pan.label }}</label>
+                            {{ form.vat_pan }}
+                            {% for error in form.vat_pan.errors %}
+                                <div class="text-danger small mt-1">{{ error }}</div>
+                            {% endfor %}
+                        </div>
 
-                                <!-- Fifth row: Citizenship Number, Passport Number -->
-                                <div class="col-md-6">
-                                    <label class="form-label fw-medium" for="{{ form.company_name.id_for_label }}">{{ form.company_name.label }}</label>
-                                    {{ form.company_name }}
-                                    {% if form.company_name.help_text %}
-                                        <div class="form-text">{{ form.company_name.help_text }}</div>
-                                    {% endif %}
-                                    {% for error in form.company_name.errors %}
-                                        <div class="text-danger small mt-1">{{ error }}</div>
-                                    {% endfor %}
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label fw-medium" for="{{ form.passport_number.id_for_label }}">{{ form.passport_number.label }}</label>
-                                    {{ form.passport_number }}
-                                    {% if form.passport_number.help_text %}
-                                        <div class="form-text">{{ form.passport_number.help_text }}</div>
-                                    {% endif %}
-                                    {% for error in form.passport_number.errors %}
-                                        <div class="text-danger small mt-1">{{ error }}</div>
-                                    {% endfor %}
-                                </div>
+                        <!-- Fifth row: National ID, Passport -->
+                        <div class="col-md-6">
+                            <label class="form-label fw-medium" for="{{ form.nid_citizen.id_for_label }}">{{ form.nid_citizen.label }}</label>
+                            {{ form.nid_citizen }}
+                            {% for error in form.nid_citizen.errors %}
+                                <div class="text-danger small mt-1">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-medium" for="{{ form.passport_number.id_for_label }}">{{ form.passport_number.label }}</label>
+                            {{ form.passport_number }}
+                            {% for error in form.passport_number.errors %}
+                                <div class="text-danger small mt-1">{{ error }}</div>
+                            {% endfor %}
+                        </div>
 
-                                <!-- Sixth row: Company Name (full width) -->
-                                {% comment %} {% if form.company_name %}
-                                <div class="col-12">
-                                    <label class="form-label fw-medium" for="{{ form.company_name.id_for_label }}">{{ form.company_name.label }}</label>
-                                    {{ form.company_name }}
-                                    {% if form.company_name.help_text %}
-                                        <div class="form-text">{{ form.company_name.help_text }}</div>
-                                    {% endif %}
-                                    {% for error in form.company_name.errors %}
-                                        <div class="text-danger small mt-1">{{ error }}</div>
-                                    {% endfor %}
-                                </div>
-                                {% endif %} {% endcomment %}
-                            </div>
+                        <!-- Sixth row: Company Name, ZIP -->
+                        <div class="col-md-6">
+                            <label class="form-label fw-medium" for="{{ form.company_name.id_for_label }}">{{ form.company_name.label }}</label>
+                            {{ form.company_name }}
+                            {% for error in form.company_name.errors %}
+                                <div class="text-danger small mt-1">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-medium" for="{{ form.zip.id_for_label }}">{{ form.zip.label }}</label>
+                            {{ form.zip }}
+                            {% for error in form.zip.errors %}
+                                <div class="text-danger small mt-1">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+
+                        <!-- Seventh row: Country -->
+                        <div class="col-md-6">
+                            <label class="form-label fw-medium" for="{{ form.country.id_for_label }}">{{ form.country.label }}</label>
+                            {{ form.country }}
+                            {% for error in form.country.errors %}
+                                <div class="text-danger small mt-1">{{ error }}</div>
+                            {% endfor %}
                         </div>
                     </div>
+                </div>
+            </div>
+
 
                     <!-- Address Section -->
                     <div class="card mb-4 border-0 shadow-sm">
@@ -467,7 +449,7 @@
                         </div>
                     </div>
 
-                    <!-- Travel & Tracking -->
+                   <!-- Travel & Tracking -->
                     <div class="card mb-4 border-0 shadow-sm">
                         <div class="card-header bg-warning text-dark py-3" data-bs-toggle="collapse" data-bs-target="#trackingDetailsCollapse" aria-expanded="false" aria-controls="trackingDetailsCollapse" style="cursor: pointer;">
                             <h5 class="card-title mb-0">
@@ -478,22 +460,62 @@
                         <div id="trackingDetailsCollapse" class="collapse">
                             <div class="card-body p-4">
                                 <div class="row g-3">
-                                    {% for field in tracking_form %}
+
+                                    {% if tracking_form.travel_from %}
                                     <div class="col-md-6">
-                                        <label class="form-label fw-medium" for="{{ field.id_for_label }}">{{ field.label }}</label>
-                                        {{ field }}
-                                        {% if field.help_text %}
-                                            <div class="form-text">{{ field.help_text }}</div>
-                                        {% endif %}
-                                        {% for error in field.errors %}
+                                        <label class="form-label fw-medium" for="{{ tracking_form.travel_from.id_for_label }}">{{ tracking_form.travel_from.label }}</label>
+                                        {{ tracking_form.travel_from }}
+                                        {% for error in tracking_form.travel_from.errors %}
                                             <div class="text-danger small mt-1">{{ error }}</div>
                                         {% endfor %}
                                     </div>
-                                    {% endfor %}
+                                    {% endif %}
+
+                                    {% if tracking_form.emergency_contact %}
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-medium" for="{{ tracking_form.emergency_contact.id_for_label }}">{{ tracking_form.emergency_contact.label }}</label>
+                                        {{ tracking_form.emergency_contact }}
+                                        {% for error in tracking_form.emergency_contact.errors %}
+                                            <div class="text-danger small mt-1">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                    {% endif %}
+
+                                    {% if tracking_form.package %}
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-medium" for="{{ tracking_form.package.id_for_label }}">{{ tracking_form.package.label }}</label>
+                                        {{ tracking_form.package }}
+                                        {% for error in tracking_form.package.errors %}
+                                            <div class="text-danger small mt-1">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                    {% endif %}
+
+                                    {% if tracking_form.travel_start_date %}
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-medium" for="{{ tracking_form.travel_start_date.id_for_label }}">{{ tracking_form.travel_start_date.label }}</label>
+                                        {{ tracking_form.travel_start_date }}
+                                        {% for error in tracking_form.travel_start_date.errors %}
+                                            <div class="text-danger small mt-1">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                    {% endif %}
+
+                                    {% if tracking_form.travel_end_date %}
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-medium" for="{{ tracking_form.travel_end_date.id_for_label }}">{{ tracking_form.travel_end_date.label }}</label>
+                                        {{ tracking_form.travel_end_date }}
+                                        {% for error in tracking_form.travel_end_date.errors %}
+                                            <div class="text-danger small mt-1">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                    {% endif %}
+
                                 </div>
                             </div>
                         </div>
                     </div>
+
 
                 </div>
 
