@@ -85,7 +85,7 @@
                             {% endfor %}
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label fw-medium" for="{{ form.vat_pan.id_for_label }}">{{ form.vat_pan.label }}</label>
+                            <label class="form-label fw-medium" for="{{ form.vat_pan.id_for_label }}">PAN / VAT </label>
                             {{ form.vat_pan }}
                             {% for error in form.vat_pan.errors %}
                                 <div class="text-danger small mt-1">{{ error }}</div>
@@ -132,14 +132,6 @@
                             <div class="mb-4">
                                 <h6 class="fw-bold text-primary mb-3">Current Address</h6>
                                 <div class="row g-3">
-
-                                        <div class="col-md-6">
-                                        <label class="form-label fw-medium" for="{{ address_form.zip.id_for_label }}">ZIP Code</label>
-                                        {{ address_form.zip }}
-                                        {% for error in address_form.zip.errors %}
-                                        <div class="text-danger small mt-1">{{ error }}</div>
-                                        {% endfor %}
-                                    </div>
                                     <div class="col-md-6">
                                         <label class="form-label fw-medium" for="{{ address_form.street_name.id_for_label }}">{{ address_form.street_name.label }}</label>
                                         {{ address_form.street_name }}
@@ -179,6 +171,14 @@
                                         <label class="form-label fw-medium" for="{{ address_form.country.id_for_label }}">{{ address_form.country.label }}</label>
                                         {{ address_form.country }}
                                         {% for error in address_form.country.errors %}
+                                        <div class="text-danger small mt-1">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-medium" for="{{ address_form.zip.id_for_label }}">ZIP Code</label>
+                                        {{ address_form.zip }}
+                                        {% for error in address_form.zip.errors %}
                                         <div class="text-danger small mt-1">{{ error }}</div>
                                         {% endfor %}
                                     </div>
@@ -237,6 +237,14 @@
                                         <div class="text-danger small mt-1">{{ error }}</div>
                                         {% endfor %}
                                     </div>
+
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-medium" for="{{ address_form.zip.id_for_label }}">ZIP Code</label>
+                                        {{ address_form.zip }}
+                                        {% for error in address_form.zip.errors %}
+                                        <div class="text-danger small mt-1">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -253,9 +261,25 @@
                         <div id="internetServiceCollapse" class="collapse">
                             <div class="card-body p-4">
                                 <div class="row g-3">
+
+                                    
+                                    {% if internet_form.enable %}
+                                    <div class="col-md-6">
+                                        <div class="form-check form-switch mt-4">
+                                            {{ internet_form.enable }}
+                                            <label class="form-check-label fw-medium" for="{{ internet_form.enable.id_for_label }}">
+                                                {{ internet_form.enable.label }}
+                                            </label>
+                                        </div>
+                                        {% for error in internet_form.enable.errors %}
+                                            <div class="text-danger small mt-1">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                    {% endif %}
+                                    
                                     {% if internet_form.mac_user %}
                                     <div class="col-md-6">
-                                        <div class="form-check form-switch">
+                                        <div class="form-check form-switch mt-4">
                                             {{ internet_form.mac_user }}
                                             <label class="form-check-label fw-medium" for="{{ internet_form.mac_user.id_for_label }}">
                                                 {{ internet_form.mac_user.label }}
@@ -287,19 +311,6 @@
                                     </div>
                                     {% endif %}
 
-                                    {% if internet_form.enable %}
-                                    <div class="col-md-6">
-                                        <div class="form-check form-switch mt-4">
-                                            {{ internet_form.enable }}
-                                            <label class="form-check-label fw-medium" for="{{ internet_form.enable.id_for_label }}">
-                                                {{ internet_form.enable.label }}
-                                            </label>
-                                        </div>
-                                        {% for error in internet_form.enable.errors %}
-                                            <div class="text-danger small mt-1">{{ error }}</div>
-                                        {% endfor %}
-                                    </div>
-                                    {% endif %}
 
                                     {% if internet_form.mac_address_of_cm %}
                                     <div class="col-md-6">
@@ -393,7 +404,7 @@
 
                                     {% if internet_form.radius_comments %}
                                     <div class="col-md-6">
-                                        <label class="form-label fw-medium" for="{{ internet_form.radius_comments.id_for_label }}">{{ internet_form.radius_comments.label }}</label>
+                                        <label class="form-label fw-medium" for="{{ internet_form.radius_comments.id_for_label }}">Comments</label>
                                         {{ internet_form.radius_comments }}
                                         {% for error in internet_form.radius_comments.errors %}
                                             <div class="text-danger small mt-1">{{ error }}</div>
@@ -703,6 +714,17 @@
 .address-row .col-md-6:last-child:nth-child(odd) {
     flex: 0 0 48%; /* Ensures single field in row takes proper width */
 }
+
+#id_radius_attribute {
+        height: 50px !important;
+    }
+#id_radius_comments {
+        height: 50px !important;
+    }
+
+#id_insurance_comments {
+        height: 50px !important;
+    }
 </style>
 
 <script>
@@ -813,7 +835,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (macUserField && passwordField) {
         function togglePasswordRequired() {
-            if (macUserField.checked) {
+            if (!macUserField.checked) {
                 passwordField.removeAttribute('required');
                 passwordField.closest('.col-md-6').style.opacity = '0.6';
             } else {
