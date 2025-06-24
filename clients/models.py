@@ -75,8 +75,8 @@ class InternetDetails(models.Model):
     account_expiry_date = models.DateField(null=True, blank=True)
     radius_comments = models.TextField(blank=True)
     radius_attribute = models.TextField(blank=True)
-    marketed_by = models.OneToOneField(Client, on_delete=models.CASCADE, null= True, blank=True, related_name="marketed_by")
-    billed_by = models.OneToOneField(Client, on_delete=models.CASCADE, null= True, blank=True, related_name="billed_by")
+    marketed_by = models.OneToOneField(CustomUser, on_delete=models.CASCADE, null= True, blank=True, related_name="marketed_by")
+    billed_by = models.OneToOneField(CustomUser, on_delete=models.CASCADE, null= True, blank=True, related_name="billed_by")
 
 
 class InsuranceDetails(models.Model):
