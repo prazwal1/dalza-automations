@@ -17,11 +17,13 @@ class UserGroup(models.Model):
         return self.name
 
 class Address(models.Model):
-    city = models.CharField(max_length=100)
-    province = models.CharField(max_length=100)
-    district = models.CharField(max_length=100)
-    ward_no = models.CharField(max_length=10)
-    street_name = models.CharField(max_length=255)
+    zip = models.CharField(max_length=10, null=True, blank=True)
+    country = models.CharField(max_length=100, blank=True, default="")
+    city = models.CharField(max_length=100, null=True, blank=True)
+    province = models.CharField(max_length=100, null=True, blank=True)
+    district = models.CharField(max_length=100, null= True, blank=True)
+    ward_no = models.CharField(max_length=10, null=True, blank=True)
+    street_name = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
         return f"{self.street_name}, Ward {self.ward_no}, {self.district}, {self.city}, {self.province}"
@@ -32,14 +34,11 @@ class Client(models.Model):
     last_name = models.CharField(max_length=100, blank=True)
     dob = models.DateField(null=True, blank=True)
     gender = models.CharField(max_length=20)
-    nationality = models.CharField(max_length=100)
 
     # Current Address Fields
     address = models.OneToOneField(Address, related_name="current_client", on_delete=models.CASCADE)
     perma_address = models.OneToOneField(Address, related_name="permanent_client", on_delete=models.CASCADE, null=True, blank=True)
 
-    zip = models.CharField(max_length=10)
-    country = models.CharField(max_length=100)
     phone_number = models.CharField(max_length=20)
     email = models.EmailField(blank=True)
     vat_pan = models.CharField(max_length=50, blank=True)
@@ -48,10 +47,9 @@ class Client(models.Model):
     company_name = models.CharField(max_length=255, blank=True)
 
     agent = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True, related_name='clients')
-    billed_by = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True, related_name='billed_clients', blank=True)
     created_date = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True)
-    unique_id = models.CharField(max_length=100, unique=True)
+    unique_id = models.CharField(max_length=100, unique=True, null=True, blank=True)
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
@@ -77,6 +75,8 @@ class InternetDetails(models.Model):
     account_expiry_date = models.DateField(null=True, blank=True)
     radius_comments = models.TextField(blank=True)
     radius_attribute = models.TextField(blank=True)
+    marketed_by = models.OneToOneField(Client, on_delete=models.CASCADE, null= True, blank=True, related_name="marketed_by")
+    billed_by = models.OneToOneField(Client, on_delete=models.CASCADE, null= True, blank=True, related_name="billed_by")
 
 
 class InsuranceDetails(models.Model):

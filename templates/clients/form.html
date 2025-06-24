@@ -69,13 +69,6 @@
 
                         <!-- Third row: Nationality, Phone -->
                         <div class="col-md-6">
-                            <label class="form-label fw-medium" for="{{ form.nationality.id_for_label }}">{{ form.nationality.label }}</label>
-                            {{ form.nationality }}
-                            {% for error in form.nationality.errors %}
-                                <div class="text-danger small mt-1">{{ error }}</div>
-                            {% endfor %}
-                        </div>
-                        <div class="col-md-6">
                             <label class="form-label fw-medium" for="{{ form.phone_number.id_for_label }}">{{ form.phone_number.label }}</label>
                             {{ form.phone_number }}
                             {% for error in form.phone_number.errors %}
@@ -101,7 +94,7 @@
 
                         <!-- Fifth row: National ID, Passport -->
                         <div class="col-md-6">
-                            <label class="form-label fw-medium" for="{{ form.nid_citizen.id_for_label }}">{{ form.nid_citizen.label }}</label>
+                            <label class="form-label fw-medium" for="{{ form.nid_citizen.id_for_label }}">National ID Card or Citizenship</label>
                             {{ form.nid_citizen }}
                             {% for error in form.nid_citizen.errors %}
                                 <div class="text-danger small mt-1">{{ error }}</div>
@@ -123,22 +116,6 @@
                                 <div class="text-danger small mt-1">{{ error }}</div>
                             {% endfor %}
                         </div>
-                        <div class="col-md-6">
-                            <label class="form-label fw-medium" for="{{ form.zip.id_for_label }}">{{ form.zip.label }}</label>
-                            {{ form.zip }}
-                            {% for error in form.zip.errors %}
-                                <div class="text-danger small mt-1">{{ error }}</div>
-                            {% endfor %}
-                        </div>
-
-                        <!-- Seventh row: Country -->
-                        <div class="col-md-6">
-                            <label class="form-label fw-medium" for="{{ form.country.id_for_label }}">{{ form.country.label }}</label>
-                            {{ form.country }}
-                            {% for error in form.country.errors %}
-                                <div class="text-danger small mt-1">{{ error }}</div>
-                            {% endfor %}
-                        </div>
                     </div>
                 </div>
             </div>
@@ -155,6 +132,14 @@
                             <div class="mb-4">
                                 <h6 class="fw-bold text-primary mb-3">Current Address</h6>
                                 <div class="row g-3">
+
+                                        <div class="col-md-6">
+                                        <label class="form-label fw-medium" for="{{ address_form.zip.id_for_label }}">ZIP Code</label>
+                                        {{ address_form.zip }}
+                                        {% for error in address_form.zip.errors %}
+                                        <div class="text-danger small mt-1">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
                                     <div class="col-md-6">
                                         <label class="form-label fw-medium" for="{{ address_form.street_name.id_for_label }}">{{ address_form.street_name.label }}</label>
                                         {{ address_form.street_name }}
@@ -407,7 +392,7 @@
                                     {% endif %}
 
                                     {% if internet_form.radius_comments %}
-                                    <div class="col-12">
+                                    <div class="col-md-6">
                                         <label class="form-label fw-medium" for="{{ internet_form.radius_comments.id_for_label }}">{{ internet_form.radius_comments.label }}</label>
                                         {{ internet_form.radius_comments }}
                                         {% for error in internet_form.radius_comments.errors %}
@@ -415,6 +400,27 @@
                                         {% endfor %}
                                     </div>
                                     {% endif %}
+
+                                    {% if internet_form.marketed_by %}
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-medium" for="{{ internet_form.marketed_by.id_for_label }}">{{ internet_form.marketed_by.label }}</label>
+                                        {{ internet_form.marketed_by }}
+                                        {% for error in internet_form.marketed_by.errors %}
+                                            <div class="text-danger small mt-1">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                    {% endif %}
+
+                                    {% if internet_form.billed_by %}
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-medium" for="{{ internet_form.billed_by.id_for_label }}">{{ internet_form.billed_by.label }}</label>
+                                        {{ internet_form.billed_by }}
+                                        {% for error in internet_form.billed_by.errors %}
+                                            <div class="text-danger small mt-1">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                    {% endif %}
+                                    
                                 </div>
                             </div>
                         </div>

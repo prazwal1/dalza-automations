@@ -20,7 +20,7 @@ class ClientForm(forms.ModelForm):
 
     class Meta:
         model = Client
-        exclude = ('agent', 'created_by', 'billed_by', 'unique_id', 'perma_address','address')
+        exclude = ('agent', 'created_by', 'unique_id', 'perma_address','address')
         widgets = {
             'dob': forms.DateInput(attrs={'type': 'date'}),
         }
@@ -54,7 +54,7 @@ class TrackingDetailsForm(forms.ModelForm):
 class AddressForm(forms.ModelForm):
     class Meta:
         model = Address
-        fields = ['city', 'province', 'district', 'ward_no', 'street_name']
+        fields = ['city', 'province', 'district', 'ward_no', 'street_name', 'country', 'zip']
 
 UploadedDocumentFormSet = inlineformset_factory(
     Client,
