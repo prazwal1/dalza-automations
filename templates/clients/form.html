@@ -464,6 +464,23 @@
                                     {% endfor %}
                                 </div>
                                 {% endif %}
+
+                                                        <div class="col-md-6">
+                            <label class="form-label fw-medium" for="{{ form.extra_field_1.id_for_label }}">{{ form.extra_field_1.label }}</label>
+                            {{ form.extra_field_1 }}
+                            {% for error in form.extra_field_1.errors %}
+                                <div class="text-danger small mt-1">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+
+                        
+                        <div class="col-md-6">
+                            <label class="form-label fw-medium" for="{{ form.extra_field_1.id_for_label }}">{{ form.extra_field_2.label }}</label>
+                            {{ form.extra_field_2 }}
+                            {% for error in form.extra_field_2.errors %}
+                                <div class="text-danger small mt-2">{{ error }}</div>
+                            {% endfor %}
+                        </div>
                             </div>
                         </div>
                     </div>

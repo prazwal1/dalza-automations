@@ -53,7 +53,10 @@ def import_clients_csv(request):
                     'nid_citizen': row.get('nid_citizen', '').strip(),
                     'passport_number': row.get('passport_number', '').strip(),
                     'company_name': row.get('company_name', '').strip(),
-                    'unique_id': row.get('unique_id', '').strip()
+                    'unique_id': row.get('unique_id', '').strip(),
+                    'extra_field_1': row.get('extra_field_1', '').strip(),
+                    'extra_field_2': row.get('extra_field_2', '').strip(),
+                    'extra_field_3': row.get('extra_field_3', '').strip(),
                 }
 
                 agent = CustomUser.objects.filter(email=row.get('agent')).first()
@@ -89,7 +92,9 @@ def import_clients_csv(request):
                         total_limit=int(row.get('total_limit', 0)),
                         account_expiry_date=parse_date(row.get('account_expiry_date')) if row.get('account_expiry_date') else None,
                         radius_comments=row.get('radius_comments', ''),
-                        radius_attribute=row.get('radius_attribute', '')
+                        radius_attribute=row.get('radius_attribute', ''),
+                        extra_field_1=row.get('extra_field_1', '').strip(),
+                        extra_field_2=row.get('extra_field_2', '').strip(),
                     )
 
                 # 5. Optional InsuranceDetails
@@ -129,7 +134,7 @@ def download_sample_csv(request):
     client_fields = [
         'first_name', 'last_name', 'dob', 'gender', 'nationality',
         'zip', 'country', 'phone_number', 'email', 'vat_pan', 'nid_citizen',
-        'passport_number', 'company_name', 'unique_id', 'agent', 'billed_by', 'created_by',
+        'passport_number', 'company_name', 'unique_id', 'agent', 'billed_by', 'created_by', 'extra_field_1', 'extra_field_2', 'extra_field_3',
         # Address (current)
         'city', 'province', 'district', 'ward_no', 'street_name',
         # Permanent address
@@ -139,7 +144,7 @@ def download_sample_csv(request):
     internet_fields = [
         'username_or_mac', 'password', 'enable', 'mac_user', 'simultaneous_use',
         'service_plan', 'user_group', 'download_limit', 'upload_limit',
-        'total_limit', 'account_expiry_date', 'radius_comments', 'radius_attribute'
+        'total_limit', 'account_expiry_date', 'radius_comments', 'radius_attribute', 'extra_field_1', 'extra_field_2'
     ]
 
     tracking_fields = [
