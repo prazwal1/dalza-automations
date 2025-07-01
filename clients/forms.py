@@ -1,8 +1,8 @@
 from django import forms
 from django.forms import inlineformset_factory
 from .models import (
-    Client, InternetDetails, InsuranceDetails,
-    TrackingDetails, UploadedDocument, Address
+    Client, InternetDetails, InsuranceDetails, ServicePlan,
+    TrackingDetails, UploadedDocument, Address, UserGroup
 )
 from insurance.permissions import get_allowed_fields_by_role
 
@@ -34,6 +34,26 @@ class InternetDetailsForm(forms.ModelForm):
             'account_expiry_date': forms.DateInput(attrs={'type': 'date'}),
         }
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        if 'user_group' in self.fields:
+            choices = self.fields['user_group'].queryset
+            if choices.exists():
+                self.fields['user_group'].initial = choices.first().pk  # Select first option
+
+        if 'service_plan' in self.fields:
+            choices = self.fields['service_plan'].queryset
+            if choices.exists():
+                self.fields['service_plan'].initial = choices.first().pk
+        
+        if 'payment_status' in self.fields:
+            self.fields['payment_status'].choices = [
+                ('paid', 'Paid'),
+                ('unpaid', 'Unpaid'),
+                ('partial', 'Partial')
+            ]
+            self.fields['payment_status'].initial = 'unpaid'
 
 class InsuranceDetailsForm(forms.ModelForm):
     class Meta:
@@ -63,3 +83,38 @@ UploadedDocumentFormSet = inlineformset_factory(
     extra=1,
     can_delete=True
 )
+
+
+class UserGroupForm(forms.ModelForm):
+    class Meta:
+        model = UserGroup
+        fields = ['name', 'description']
+
+class ServicePlanForm(forms.ModelForm):
+    class Meta:
+        model = ServicePlan
+        fields = ['name', 'description']
+        
+        
+class ClientFilterForm(forms.Form):
+    # Main client fields
+    first_name = forms.CharField(required=False, label="First Name")
+    last_name = forms.CharField(required=False, label="Last Name")
+    email = forms.CharField(required=False, label="Email")
+    phone_number = forms.CharField(required=False, label="Phone Number")
+    vat_pan = forms.CharField(required=False, label="VAT/PAN")
+    company_name = forms.CharField(required=False, label="Company Name")
+    # Address fields
+    city = forms.CharField(required=False, label="City")
+    province = forms.CharField(required=False, label="Province")
+    # InternetDetails fields
+    username_or_mac = forms.CharField(required=False, label="Username or MAC")
+    service_plan = forms.ModelChoiceField(queryset=ServicePlan.objects.all(), required=False, label="Service Plan")
+    user_group = forms.ModelChoiceField(queryset=UserGroup.objects.all(), required=False, label="User Group")
+    # InsuranceDetails fields
+    insurance_comments = forms.CharField(required=False, label="Insurance Comments")
+    # TrackingDetails fields
+    travel_from = forms.CharField(required=False, label="Travel From")
+    package = forms.CharField(required=False, label="Package")
+    # General search
+    search = forms.CharField(required=False, label="General Search")

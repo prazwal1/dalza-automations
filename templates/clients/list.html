@@ -2,14 +2,7 @@
 {% block content %}
 <div class="container mt-4">
 <div class="mb-3 d-flex justify-content-between align-items-center">
-    <div>
-        <a href="{% url 'client_create' %}" class="btn btn-success">
-            + Create Client
-        </a>
-        <a href="" class="btn btn-outline-primary">
-            ⬇️ Export CSV
-        </a>
-    </div>
+
     
     <form method="post" action="{% url 'import_clients_csv' %}" enctype="multipart/form-data" class="d-flex align-items-center">
         {% csrf_token %}
@@ -17,7 +10,16 @@
         <button type="submit" class="btn btn-outline-secondary">⬆️ Import CSV</button>
     </form>
 
-    <div class="mb-3">
+        <div>
+        {% comment %} <a href="{% url 'client_create' %}" class="btn btn-success">
+            + Create Client
+        </a> {% endcomment %}
+        <a href="" class="btn btn-outline-primary">
+            ⬇️ Export CSV
+        </a>
+    </div>
+
+    {% comment %} <div class="mb-3">
     <div class="dropdown d-inline-block">
         <button class="btn btn-outline-info dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
             📥 Download Sample CSV
@@ -29,7 +31,7 @@
             <li><a class="dropdown-item" href="{% url 'download_sample_csv' %}?type=client_internet_tracking">Client + Internet + Tracking</a></li>
         </ul>
     </div>
-</div>
+</div> {% endcomment %}
 
 </div>
 

@@ -5,14 +5,18 @@ from user_authen.models import CustomUser
 
 class ServicePlan(models.Model):
     name = models.CharField(max_length=100)
-
+    created_by = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True, related_name='service_plans_created')
+    created_at = models.DateTimeField(auto_now_add=True)
+    description = models.TextField(blank=True, null=True)
     def __str__(self):
         return self.name
 
 
 class UserGroup(models.Model):
     name = models.CharField(max_length=100)
-
+    created_by = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True, related_name='user_groups_created')
+    created_at = models.DateTimeField(auto_now_add=True)
+    description = models.TextField(blank=True, null=True)
     def __str__(self):
         return self.name
 
@@ -50,10 +54,9 @@ class Client(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True)
     unique_id = models.CharField(max_length=100, unique=True, null=True, blank=True)
-
-    def __str__(self):
-        return f"{self.first_name} {self.last_name}"
-
+    extra_field_1 = models.CharField(max_length=255, blank=True, null=True)
+    extra_field_2 = models.CharField(max_length=255, blank=True, null=True)
+    extra_field_3 = models.CharField(max_length=255, blank=True, null=True)
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
@@ -75,8 +78,10 @@ class InternetDetails(models.Model):
     account_expiry_date = models.DateField(null=True, blank=True)
     radius_comments = models.TextField(blank=True)
     radius_attribute = models.TextField(blank=True)
-    marketed_by = models.OneToOneField(CustomUser, on_delete=models.CASCADE, null= True, blank=True, related_name="marketed_by")
-    billed_by = models.OneToOneField(CustomUser, on_delete=models.CASCADE, null= True, blank=True, related_name="billed_by")
+    marketed_by = models.CharField(max_length=100, blank=True, null=True)
+    billed_by = models.CharField(max_length=100, blank=True, null=True)
+    payment_status = models.CharField(max_length=20, blank=True, choices=[('paid', 'Paid'), ('unpaid', 'Unpaid'), ('partial', 'Partial')])
+    account_owner = models.OneToOneField(CustomUser, on_delete=models.CASCADE, null= True, blank=True, related_name="account_owner")
 
 
 class InsuranceDetails(models.Model):

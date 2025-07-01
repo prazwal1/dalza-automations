@@ -40,9 +40,32 @@
           <li class="nav-item">
             <a class="nav-link" href="{% url 'insurance:travelbooking_list' %}">Bookings</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'client_list' %}">Clients</a>
-          </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Clients
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{% url 'client_list' %}">List All Clients</a></li>
+            <li><a class="dropdown-item" href="{% url 'client_create' %}">Create Clients</a></li>
+            <li><a class="dropdown-item" href="{% url 'client_filter' %}">Filter Clients</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="{% url 'download_sample_csv' %}?type=client_only">Download Sample Client Only</a></li>
+            <li><a class="dropdown-item" href="{% url 'download_sample_csv' %}?type=client_internet">Download Sample Client + Internet Details</a></li>
+            <li><a class="dropdown-item" href="{% url 'download_sample_csv' %}?type=client_tracking">Download Sample Client + Tracking Details</a></li>
+            <li><a class="dropdown-item" href="{% url 'download_sample_csv' %}?type=client_internet_tracking">Download Sample Client + Internet + Tracking</a></li>          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Options
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{% url 'user_group_list' %}">List User Groups</a></li>
+            <li><a class="dropdown-item" href="{% url 'user_group_create' %}">Create User Groups</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="{% url 'service_plan_list' %}">List Service Plans</a></li>
+            <li><a class="dropdown-item" href="{% url 'service_plan_create' %}">Create Service Plans</a></li>
+       </ul>
+        </li>
           {% elif user.role == 'agent' %}
           <li class="nav-item">
             <a class="nav-link" href="{% url 'insurance:travelbooking_list' %}">Bookings</a>

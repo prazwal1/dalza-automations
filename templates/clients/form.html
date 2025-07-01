@@ -116,6 +116,32 @@
                                 <div class="text-danger small mt-1">{{ error }}</div>
                             {% endfor %}
                         </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-medium" for="{{ form.extra_field_1.id_for_label }}">{{ form.extra_field_1.label }}</label>
+                            {{ form.extra_field_1 }}
+                            {% for error in form.extra_field_1.errors %}
+                                <div class="text-danger small mt-1">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+
+                        
+                        <div class="col-md-6">
+                            <label class="form-label fw-medium" for="{{ form.extra_field_1.id_for_label }}">{{ form.extra_field_2.label }}</label>
+                            {{ form.extra_field_2 }}
+                            {% for error in form.extra_field_2.errors %}
+                                <div class="text-danger small mt-2">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+
+                        
+                        <div class="col-md-6">
+                            <label class="form-label fw-medium" for="{{ form.extra_field_3.id_for_label }}">{{ form.extra_field_3.label }}</label>
+                            {{ form.extra_field_3 }}
+                            {% for error in form.extra_field_3.errors %}
+                                <div class="text-danger small mt-3">{{ error }}</div>
+                            {% endfor %}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -428,6 +454,16 @@
                                     {% endfor %}
                                 </div>
                                 {% endif %}
+
+                                {% if internet_form.payment_status %}
+                                <div class="col-md-6">
+                                    <label class="form-label fw-medium" for="{{ internet_form.payment_status.id_for_label }}">{{ internet_form.payment_status.label }}</label>
+                                    {{ internet_form.payment_status }}
+                                    {% for error in internet_form.payment_status.errors %}
+                                        <div class="text-danger small mt-1">{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -723,10 +759,6 @@
 </style>
 
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
 
 <script>
 let documentCount = {{ document_formset.forms|length }};
@@ -850,130 +882,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-
-$(document).ready(function() {
-        // Initialize Select2 for service_plan
-        $('#{{ internet_form.service_plan.id_for_label }}').select2({
-            placeholder: "Select or create a service plan",
-            tags: true,
-            createTag: function(params) {
-                var term = $.trim(params.term);
-                if (term === '') {
-                    return null;
-                }
-                return {
-                    id: term,
-                    text: term,
-                    newTag: true
-                };
-            },
-            ajax: {
-                url: '/clients/api/service-plans/',
-                dataType: 'json',
-                delay: 250,
-                data: function(params) {
-                    return {
-                        q: params.term
-                    };
-                },
-                processResults: function(data) {
-                    return {
-                        results: $.map(data, function(item) {
-                            return {
-                                text: item.name,
-                                id: item.id
-                            };
-                        })
-                    };
-                },
-                cache: true
-            },
-            minimumInputLength: 1
-        }).on('select2:select', function(e) {
-            if (e.params.data.newTag) {
-                $.ajax({
-                    url: '/clients/api/service-plans/create/',
-                    type: 'POST',
-                    contentType: 'application/json',
-                    data: JSON.stringify({
-                        name: e.params.data.text,
-                        csrfmiddlewaretoken: '{{ csrf_token }}'
-                    }),
-                    headers: {
-                        'X-CSRFToken': '{{ csrf_token }}'
-                    },
-                    success: function(response) {
-                        $('#{{ internet_form.service_plan.id_for_label }}').append(new Option(response.name, response.id, true, true)).trigger('change');
-                    },
-                    error: function(xhr) {
-                        console.error('Error creating service plan:', xhr.responseText);
-                        alert('Error creating service plan: ' + xhr.responseText);
-                    }
-                });
-            }
-        });
-
-        // Initialize Select2 for user_group
-        $('#{{ internet_form.user_group.id_for_label }}').select2({
-            placeholder: "Select or create a user group",
-            tags: true,
-            createTag: function(params) {
-                var term = $.trim(params.term);
-                if (term === '') {
-                    return null;
-                }
-                return {
-                    id: term,
-                    text: term,
-                    newTag: true
-                };
-            },
-            ajax: {
-                url: '/clients/api/user-groups/',
-                dataType: 'json',
-                delay: 250,
-                data: function(params) {
-                    return {
-                        q: params.term
-                    };
-                },
-                processResults: function(data) {
-                    return {
-                        results: $.map(data, function(item) {
-                            return {
-                                text: item.name,
-                                id: item.id
-                            };
-                        })
-                    };
-                },
-                cache: true
-            },
-            minimumInputLength: 1
-        }).on('select2:select', function(e) {
-            if (e.params.data.newTag) {
-                $.ajax({
-                    url: '/clients/api/user-groups/create/',
-                    type: 'POST',
-                    contentType: 'application/json',
-                    data: JSON.stringify({
-                        name: e.params.data.text,
-                        csrfmiddlewaretoken: '{{ csrf_token }}'
-                    }),
-                    headers: {
-                        'X-CSRFToken': '{{ csrf_token }}'
-                    },
-                    success: function(response) {
-                        $('#{{ internet_form.user_group.id_for_label }}').append(new Option(response.name, response.id, true, true)).trigger('change');
-                    },
-                    error: function(xhr) {
-                        console.error('Error creating user group:', xhr.responseText);
-                        alert('Error creating user group: ' + xhr.responseText);
-                    }
-                });
-            }
-        });
-    });
 
 </script>
 
