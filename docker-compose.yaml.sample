@@ -1,16 +1,14 @@
 version: '3.9'
 
 services:
-  # db:
-  #   image: postgres:15
-  #   volumes:
-  #     - postgres_data:/var/lib/postgresql/data/
-  #   environment:
-  #     POSTGRES_DB: mydb
-  #     POSTGRES_USER: myuser
-  #     POSTGRES_PASSWORD: mypassword
-  #   networks:
-  #     - djangonetwork
+  db:
+    image: postgres:15
+    volumes:
+      - /workspace/db/postgres_data:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_DB: dashboard
+      POSTGRES_USER: dalza_user
+      POSTGRES_PASSWORD: 7t5laU7r4qXo
   web:
     build: .
     command: python manage.py runserver 0.0.0.0:8000
@@ -19,5 +17,7 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - INTERNAL_HOST=172.31.176.1
-      - INTERNAL_URL=http://172.31.176.1:8000
+      - INTERNAL_HOST=172.17.0.1
+      - INTERNAL_URL=http://172.17.0.1:8000
+      - AUTOMATION_SERVICE=http://172.17.0.1:5000
+    restart: always
