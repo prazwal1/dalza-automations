@@ -93,6 +93,7 @@ def import_clients_csv(request):
                         account_expiry_date=parse_date(row.get('account_expiry_date')) if row.get('account_expiry_date') else None,
                         radius_comments=row.get('radius_comments', ''),
                         radius_attribute=row.get('radius_attribute', ''),
+                        payment_status=row.get('payment_status', '').strip(),
                         extra_field_1=row.get('extra_field_1', '').strip(),
                         extra_field_2=row.get('extra_field_2', '').strip(),
                     )
@@ -144,7 +145,7 @@ def download_sample_csv(request):
     internet_fields = [
         'username_or_mac', 'password', 'enable', 'mac_user', 'simultaneous_use',
         'service_plan', 'user_group', 'download_limit', 'upload_limit',
-        'total_limit', 'account_expiry_date', 'radius_comments', 'radius_attribute', 'extra_field_1', 'extra_field_2'
+        'total_limit', 'account_expiry_date', 'radius_comments', 'radius_attribute', 'payment_status', 'extra_field_1', 'extra_field_2'
     ]
 
     tracking_fields = [
