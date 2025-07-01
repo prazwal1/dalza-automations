@@ -868,7 +868,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (macUserField && passwordField) {
         function togglePasswordRequired() {
-            if (!macUserField.checked) {
+            if (macUserField.checked) {
                 passwordField.removeAttribute('required');
                 passwordField.closest('.col-md-6').style.opacity = '0.6';
             } else {
