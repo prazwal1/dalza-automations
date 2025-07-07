@@ -8,7 +8,13 @@ from django.views.decorators.csrf import csrf_exempt
 from .models import Client, InternetDetails, InsuranceDetails, TrackingDetails, ServicePlan, UserGroup, Address
 from user_authen.models import CustomUser
 
-
+def safe_int(value):
+    try:
+        return int(value)
+    except (ValueError, TypeError):
+        return 0 
+    
+    
 @csrf_exempt
 def import_clients_csv(request):
     if request.method != 'POST' or 'file' not in request.FILES:
@@ -84,12 +90,12 @@ def import_clients_csv(request):
                         mac_user=row.get('mac_user', 'False').lower() == 'true',
                         password=row.get('password', ''),
                         mac_address_of_cm=row.get('mac_address_of_cm', ''),
-                        simultaneous_use=int(row.get('simultaneous_use', 1)),
+                        simultaneous_use=safe_int(row.get('simultaneous_use', 1)),
                         service_plan=service_plan,
                         user_group=user_group,
-                        download_limit=int(row.get('download_limit', 0)),
-                        upload_limit=int(row.get('upload_limit', 0)),
-                        total_limit=int(row.get('total_limit', 0)),
+                        download_limit=safe_int(row.get('download_limit', 0)),
+                        upload_limit=safe_int(row.get('upload_limit', 0)),
+                        total_limit=safe_int(row.get('total_limit', 0)),
                         account_expiry_date=parse_date(row.get('account_expiry_date')) if row.get('account_expiry_date') else None,
                         radius_comments=row.get('radius_comments', ''),
                         radius_attribute=row.get('radius_attribute', ''),
