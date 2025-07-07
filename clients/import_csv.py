@@ -4,7 +4,7 @@ from django.shortcuts import redirect
 from django.utils.dateparse import parse_date
 from django.db import transaction
 from django.views.decorators.csrf import csrf_exempt
-
+import uuid
 from .models import Client, InternetDetails, InsuranceDetails, TrackingDetails, ServicePlan, UserGroup, Address
 from user_authen.models import CustomUser
 
@@ -61,7 +61,7 @@ def import_clients_csv(request):
                     'nid_citizen': row.get('nid_citizen', '').strip(),
                     'passport_number': row.get('passport_number', '').strip(),
                     'company_name': row.get('company_name', '').strip(),
-                    'unique_id': row.get('unique_id', '').strip(),
+                    'unique_id': row.get('unique_id', str(uuid.uuid4())).strip(),
                     'extra_field_1': row.get('extra_field_1', '').strip(),
                     'extra_field_2': row.get('extra_field_2', '').strip(),
                     'extra_field_3': row.get('extra_field_3', '').strip(),
