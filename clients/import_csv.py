@@ -26,7 +26,10 @@ def import_clients_csv(request):
                     province=row.get('province', '').strip(),
                     district=row.get('district', '').strip(),
                     ward_no=row.get('ward_no', '').strip(),
-                    street_name=row.get('street_name', '').strip()
+                    street_name=row.get('street_name', '').strip(),
+                    country= row.get('country', '').strip(),
+                    zip=row.get('zip', '').strip(),
+
                 )
 
                 # 2. Parse permanent address
@@ -35,7 +38,9 @@ def import_clients_csv(request):
                     province=row.get('perma_province', '').strip(),
                     district=row.get('perma_district', '').strip(),
                     ward_no=row.get('perma_ward_no', '').strip(),
-                    street_name=row.get('perma_street_name', '').strip()
+                    street_name=row.get('perma_street_name', '').strip(),
+                    country=row.get('perma_country', '').strip(),
+                    zip=row.get('perma_zip', '').strip(),
                 )
 
                 # 3. Basic Client data
@@ -44,8 +49,6 @@ def import_clients_csv(request):
                     'last_name': row.get('last_name', '').strip(),
                     'dob': parse_date(row.get('dob')) if row.get('dob') else None,
                     'gender': row.get('gender', '').strip(),
-                    'nationality': row.get('nationality', '').strip(),
-                    'zip': row.get('zip', '').strip(),
                     'country': row.get('country', '').strip(),
                     'phone_number': row.get('phone_number', '').strip(),
                     'email': row.get('email', '').strip(),
@@ -60,12 +63,10 @@ def import_clients_csv(request):
                 }
 
                 agent = CustomUser.objects.filter(email=row.get('agent')).first()
-                billed_by = CustomUser.objects.filter(email=row.get('billed_by')).first()
                 created_by = CustomUser.objects.filter(email=row.get('created_by')).first()
 
                 client = Client.objects.create(
                     agent=agent,
-                    billed_by=billed_by,
                     created_by=created_by,
                     address=current_address,
                     perma_address=perma_address,
@@ -133,13 +134,12 @@ def download_sample_csv(request):
 
     # Base Client fields
     client_fields = [
-        'first_name', 'last_name', 'dob', 'gender', 'nationality',
-        'zip', 'country', 'phone_number', 'email', 'vat_pan', 'nid_citizen',
+        'first_name', 'last_name', 'dob', 'gender', 'phone_number', 'email', 'vat_pan', 'nid_citizen',
         'passport_number', 'company_name', 'unique_id', 'agent', 'billed_by', 'created_by', 'extra_field_1', 'extra_field_2', 'extra_field_3',
         # Address (current)
-        'city', 'province', 'district', 'ward_no', 'street_name',
+        'city', 'province', 'district', 'ward_no', 'street_name', 'country', 'zip',
         # Permanent address
-        'perma_city', 'perma_province', 'perma_district', 'perma_ward_no', 'perma_street_name'
+        'perma_city', 'perma_province', 'perma_district', 'perma_ward_no', 'perma_street_name', 'perma_country', 'perma_zip'
     ]
 
     internet_fields = [
