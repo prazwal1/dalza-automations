@@ -49,7 +49,6 @@ def import_clients_csv(request):
                     'last_name': row.get('last_name', '').strip(),
                     'dob': parse_date(row.get('dob')) if row.get('dob') else None,
                     'gender': row.get('gender', '').strip(),
-                    'country': row.get('country', '').strip(),
                     'phone_number': row.get('phone_number', '').strip(),
                     'email': row.get('email', '').strip(),
                     'vat_pan': row.get('vat_pan', '').strip(),
