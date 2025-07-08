@@ -78,6 +78,7 @@ class ClientListView(ListView):
     model = Client
     template_name = 'clients/list.html'
     context_object_name = 'clients'
+    paginate_by = 20  # You can adjust the number per page
 
     def get_queryset(self):
         queryset = super().get_queryset()
