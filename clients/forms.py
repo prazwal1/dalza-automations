@@ -49,9 +49,7 @@ class InternetDetailsForm(forms.ModelForm):
         
         if 'payment_status' in self.fields:
             self.fields['payment_status'].choices = [
-                ('paid', 'Paid'),
-                ('unpaid', 'Unpaid'),
-                ('partial', 'Partial')
+            ('paid', 'Paid'), ('unpaid', 'Unpaid'), ('unverified', 'Unverified'), ('foc', 'FOC'), ('priv', 'Priv')
             ]
             self.fields['payment_status'].initial = 'unpaid'
 
