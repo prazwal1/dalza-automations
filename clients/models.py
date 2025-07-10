@@ -80,7 +80,7 @@ class InternetDetails(models.Model):
     radius_attribute = models.TextField(blank=True)
     marketed_by = models.CharField(max_length=100, blank=True, null=True)
     billed_by = models.CharField(max_length=100, blank=True, null=True)
-    payment_status = models.CharField(max_length=20, blank=True, choices=[('paid', 'Paid'), ('unpaid', 'Unpaid'), ('partial', 'Partial')])
+    payment_status = models.CharField(max_length=20, blank=True, choices=[('paid', 'Paid'), ('unpaid', 'Unpaid'), ('unverified', 'Unverified'), ('foc', 'FOC'), ('priv', 'Priv')])
     account_owner = models.OneToOneField(CustomUser, on_delete=models.CASCADE, null= True, blank=True, related_name="account_owner")
     extra_field_1 = models.CharField(max_length=255, blank=True, null=True)
     extra_field_2 = models.CharField(max_length=255, blank=True, null=True)
